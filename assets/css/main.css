@@ -4085,7 +4085,7 @@ body.is-touch #banner {
 
 @media screen and (max-width: 480px) {
     #banner .content header {
-        padding-left: 0px; padding-bottom: 0px;
+        padding-left: 0px;
     }
 
     .projects {
