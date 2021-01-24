@@ -4088,6 +4088,14 @@ body.is-touch #banner {
         padding-left: 0px;
     }
 
+    code {
+        font-size: 15pt;
+    }
+
+    .typing {
+        font-size: 8pt;
+    }
+
     .projects {
         width: 100%;
     }
