@@ -3555,7 +3555,7 @@ body.landing #header {
 #banner .content header {
     display: inline-block;
     vertical-align: middle;
-    padding-left: 500px; padding-bottom: 200px;
+    padding-left: 500px; padding-bottom: 150px;
 }
 
 #banner .content header h2 {
@@ -4159,4 +4159,9 @@ body.is-touch #banner {
         margin: 0;
         padding: 0;
     }
+
+    .career {
+        font-size: 8pt;
+    }
+
 }
