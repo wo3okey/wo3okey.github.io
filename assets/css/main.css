@@ -202,6 +202,10 @@ blockquote {
     padding: 0.5em 0 0.5em 2em;
 }
 
+blockquote .career {
+    font-style: normal;
+}
+
 code {
     background: rgba(255, 255, 255, 0.075);
     border-radius: 4px;
@@ -256,13 +260,6 @@ pre code {
     height: 90%;
     border-right: 2px solid #FFF;
     animation: blink .5s infinite ease;
-}
-
-@keyframes typing {
-    to { width: 0 }
-}
-@keyframes caret {
-    50% { color: transparent }
 }
 
 .tech_icon {
