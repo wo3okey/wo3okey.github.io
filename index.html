@@ -14,6 +14,11 @@
     <noscript>
         <link rel="stylesheet" href="assets/css/noscript.css"/>
     </noscript>
+
+    <meta property="og:url"                content="https://wo3okey.github.io/" />
+    <meta property="og:title"              content="Wookey Portfolio 2020" />
+    <meta property="og:description"        content="Attractive and Fascinating Developer Wookey Portfolio" />
+    <meta property="og:image"              content=""/>
 </head>
 
 <body class="is-preload landing">
@@ -153,7 +158,7 @@
                         <b>대용량 개인화 데이터 처리</b><br><br>
                         <ul>
                             <li class="project_contant">
-                                고객마케팅 팀과의 협업을 통해 적게는 몇만, 많게는 천만건 이상의 개인화 타겟 데이터를 인입
+                                고객마케팅 팀과의 협업을 통해 적게는 몇만, 많게는 천만건 이상의 개인화 타겟 데이터 인입
                             </li>
                             <li class="project_contant">
                                 Hive 저장소, SpringBatch read/write의 파티셔닝을 통해 Mysql로 대용량 데이터 처리 및 이관
@@ -177,16 +182,18 @@
                     </p>
                 </header>
                 <div class="projects">
-                    <table>
-                        <tr>
-                            <td><img class="image fit" src="images/project/roulette1.jpg" title="티몬데이룰렛1" alt=""/></td>
-                            <td><img class="image fit" src="images/project/roulette2.jpg" title="티몬데이룰렛2" alt=""/></td>
-                        </tr>
-                        <tr>
-                            <td><img class="image fit" src="images/project/roulette3.jpg" title="티몬데이룰렛3" alt=""/></td>
-                            <td><img class="image fit" src="images/project/roulette4.jpg" title="티몬데이룰렛4" alt=""/></td>
-                        </tr>
-                    </table>
+                    <div class="roulette-img">
+                        <img class="image fit" src="images/project/roulette1.jpg" title="티몬데이룰렛1" alt=""/>
+                    </div>
+                    <div class="roulette-img">
+                        <img class="image fit" src="images/project/roulette2.jpg" title="티몬데이룰렛2" alt=""/>
+                    </div>
+                    <div class="roulette-img">
+                        <img class="image fit" src="images/project/roulette3.jpg" title="티몬데이룰렛3" alt=""/>
+                    </div>
+                    <div class="roulette-img">
+                        <img class="image fit" src="images/project/roulette4.jpg" title="티몬데이룰렛4" alt=""/>
+                    </div>
 
                     <img class="image fit" src="images/project/project4.JPG" width="100%">
                     <div style="text-align: left">
@@ -196,15 +203,12 @@
                                 쿠폰/적립금/경품 등 상품의 스킴에 상관없이 다양하게 상품 설정이 가능한 구조로 설계
                             </li>
                             <li class="project_contant">
-                                시스템 담당자가 프로모션 진행기간과 시간을 유연하게 설정할 수 있도록 스케줄링 시스템을 개발
+                                시스템 담당자가 프로모션 진행기간과 시간을 유연하게 설정할 수 있도록 스케줄링 시스템 개발
                             </li>
                         </ul>
 
                         <b>일평균 40만 사용자의 참여</b><br><br>
                         <ul>
-                            <li class="project_contant">
-                                단위 시간내 많은 transaction 처리를 위해 Redis, Memcached 활용
-                            </li>
                             <li class="project_contant">
                                 프로모션 정책 저장시 Redis에 상품별 최대당첨갯수와 현재갯수 정보를 저장하며 프로모션 참여시 중복지급여부 및 당첨확률 등의 유효성 검사를 진행
                             </li>
@@ -219,7 +223,7 @@
                                 크로스 체크를 통해 화면(front)과 비즈니스(backend) 방어
                             </li>
                             <li class="project_contant">
-                                공격적인 다중요청 방어를 위해 스케줄 정보와 사용자 정보를 DB Unique key 설정하여 비정상적인 데이터 요청건 방어
+                                공격적인 다중요청 방어를 위해 스케줄 정보와 사용자 정보를 DB Unique 설정으로 비정상적인 데이터 요청건 방어
                             </li>
                         </ul>
                     </div>
@@ -233,11 +237,11 @@
                     <h3>4. HF Renewal System</h3>
                     <p>
                         한국주택금융공사(HF) 차세대 시스템 개발에 참여했습니다.<br>
-                        주택신용보증팀 개인보증 개발 업무를 수행했습니다.<br>
+                        주택신용보증팀에서 개인보증 개발 업무를 수행했습니다.<br>
                     </p>
                 </header>
                 <div class="projects">
-                    <img src="images/project/project2.JPG" class="image fit"><br>
+                    <img src="images/project/project5.png" class="image fit"><br>
                     <div style="text-align: left">
                         <b>공사(HF)와 개인들간의 주택보증 업무 개발 수행</b><br><br>
                         <ul>
@@ -270,7 +274,7 @@
                     <h2>Thank you for Reading!</h2>
                     <h4>Contact me</h4>
                 </header>
-                <ul class="icons" style="padding-left: 50px">
+                <ul class="icons">
                     <li><a target="_blank" href="https://www.facebook.com/profile.php?id=100003542100389"
                            class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
                     <li><a target="_blank" href="https://www.instagram.com/ahn_h_w/"
@@ -284,7 +288,6 @@
                     <li>Developer. since 2017</li>
                 </ul>
             </footer>
-
         </div>
 
         <!-- Scripts -->
@@ -299,5 +302,4 @@
     </div>
 </div>
 </body>
-
 </html>

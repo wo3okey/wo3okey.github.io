@@ -2610,6 +2610,12 @@ input[type="radio"] + label:before {
     width: 100%;
 }
 
+.roulette-img {
+    float: left;
+    width: 24%;
+    margin-right: 1%;
+}
+
 /* List */
 
 ol {
