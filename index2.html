@@ -16,6 +16,10 @@
     </noscript>
 
     <style>
+        body {
+            padding: 50px
+        }
+
         ul {
             list-style: none;
         }
@@ -23,12 +27,27 @@
         ul li {
             padding-bottom: 25px;
         }
+
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 12px;
+                font-size: 8px;
+            }
+
+            ul li {
+                padding-bottom: 8px;
+            }
+        }
     </style>
 </head>
 
-<body class="is-preload landing" style="padding: 50px">
+<body class="is-preload landing">
+<!-- Header -->
+<header id="header">
+    <h1 id="logo"><a href="index.html">Interview Q&A List</a></h1>
+</header>
+
 <div id="page-wrapper">
-    <h2>Interview Q&A List</h2>
     <h4>JAVA</h4>
     <ul>
         <li>Q) JVM 메모리 구조를 설명해 주세요.</li>
