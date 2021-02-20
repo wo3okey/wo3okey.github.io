@@ -28,6 +28,14 @@
             padding-bottom: 25px;
         }
 
+        ul li p {
+            margin : 0;
+        }
+
+        ul li .question {
+            color: #4cae4c;
+        }
+
         @media screen and (max-width: 480px) {
             body {
                 padding: 12px;
@@ -50,54 +58,92 @@
 <div id="page-wrapper">
     <h4>JAVA</h4>
     <ul>
-        <li>Q) JVM 메모리 구조를 설명해 주세요.</li>
-        <li>Q) 쓰레드풀 과 ForkJoinPool에 대해서 얘기해보세요</li>
-        <li>Q) Concurrent, Feature에 대해서 얘기해보세요</li>
-        <li>Q) Java8 이상 의 특징점은?</li>
-        <li>Q) 자바의 GC는 어떻게 동작하나요? 특징 아는대로 얘기해보세요</li>
+        <li>
+            <p class="question">Q) JVM 메모리 구조를 설명해 주세요.</p>
+            <p class="answer">A) 스택, 힙 영역...</p>
+        </li>
+        <li>
+            <p class="question"> Q) 쓰레드풀 과 ForkJoinPool에 대해서 얘기해보세요 </p>
+        </li>
+        <li>
+            <p class="question">Q) Concurrent, Feature에 대해서 얘기해보세요</p>
+        </li>
+        <li>
+            <p class="question">Q) Java8 이상 의 특징점은?</p>
+        </li>
+        <li>
+            <p class="question">Q) 자바의 GC는 어떻게 동작하나요? 특징 아는대로 얘기해보세요</p>
+        </li>
     </ul>
 
 
     <h4>SpringFramework</h4>
     <ul>
-        <li>Q) SpringBatch의 동작과정은?</li>
-        <li>Q) DI/AOP란 무엇인가?</li>
+        <li>
+            <p class="question">Q) SpringBatch의 동작과정은?</p>
+        </li>
+        <li>
+            <p class="question">Q) DI/AOP란 무엇인가?</p>
+        </li>
     </ul>
 
     <h4>DB</h4>
     <ul>
-        <li>Q) Redis, Memcached의 동작방식은? 서로의 차이점은?</li>
         <li>
-            Q) HIVE의 동작방식은?<br>
-            A) Map과 Reduce...
+            <p class="question">Q) Redis, Memcached의 동작방식은? 서로의 차이점은?</p>
         </li>
-        <li>Q) NOSQL과 RDB의 차이점,장단점</li>
-        <li>Q) RabbitMQ의 동작방식과 특징은?</li>
-        <li>Q) Index 생성시 주의해야할점?</li>
+        <li>
+            <p class="question">Q) HIVE의 동작방식은?</p>
+            <p class="answer">A) Map과 Reduce...</p>
+        </li>
+        <li>
+            <p class="question">Q) Nosql과 RDB의 차이점,장단점</p>
+        </li>
+        <li>
+            <p class="question">Q) RabbitMQ의 동작방식과 특징은?</p>
+        </li>
+        <li>
+            <p class="question">Q) Index 생성시 주의해야할점?</p>
+        </li>
     </ul>
 
     <h4>Transaction</h4>
     <ul>
-        <li>Q) 트랜잭션을 병행으로 처리하려고 할 때 발생할 수 있는 문제? 방지 기법</li>
-        <li>Q) 트랜잭션이 뭔가요? 트랜잭션의 성질은?</li>
-        <li>Q) 정규화의 목적이 무엇인가요?</li>
+        <li>
+            <p class="question">Q) 트랜잭션을 병행으로 처리하려고 할 때 발생할 수 있는 문제? 방지 기법</p>
+        </li>
+        <li>
+            <p class="question">Q) 트랜잭션이 뭔가요? 트랜잭션의 성질은?</p>
+        </li>
+        <li>
+            <p class="question">Q) 정규화의 목적이 무엇인가요?</p>
+        </li>
     </ul>
 
-    <h4>Sub Tech.</h4>
+    <h4>Finance</h4>
     <ul>
-        <li>Q) 대용량 데이터 처리를 위한 서비스 아키텍처에 대해 설명해 주세요. 그에 대한 기술도 함께 말씀해 주세요.</li>
+        <li>
+            <p class="question">Q) 신용정보 시스템 개발?</p>
+        </li>
+    </ul>
+
+    <h4>Scenario</h4>
+    <ul>
+        <li>
+            <p class="question">Q) 대용량 데이터 처리를 위한 서비스 아키텍처에 대해 설명해 주세요. 그에 대한 기술도 함께 말씀해 주세요.</p>
+        </li>
     </ul>
 
 
     <h4>Etc.</h4>
     <ul>
         <li>
-            Q) 흥미롭게 읽은 책이 있나요?<br>
-            A) 실제로 읽은책 예시꼽기, if kakao 섹션 얘기
+            <p class="question">Q) 흥미롭게 읽은 책이 있나요?</p>
+            <p class="answer">A) 실제로 읽은책 예시꼽기, if kakao 섹션 얘기</p>
         </li>
         <li>
-            Q) 금융개발 중 문제될 수 있었던 사례?<br>
-            A) long, double BigDecimal 사례
+            <p class="question">Q) 금융개발 중 문제될 수 있었던 사례?</p>
+            <p class="answer">A) long, double BigDecimal 사례</p>
         </li>
     </ul>
 </div>
