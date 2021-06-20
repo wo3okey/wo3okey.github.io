@@ -2622,6 +2622,12 @@ input[type="radio"] + label:before {
     margin-right: 1%;
 }
 
+.pompom-img2 {
+    float: right;
+    width: 49%;
+    margin-right: 1%;
+}
+
 /* List */
 
 ol {
