@@ -138,3 +138,47 @@ a:hover .icon
     color: #f92672
   .gi
     color: #a6e22e
+
+.toc
+  position: absolute
+  right: 0px
+  width: 350px
+  color: $light
+  overflow-y: auto
+  overflow-x: hidden
+
+  display: none
+  @media (min-width: 75em)
+    width: 240px
+    display: block
+
+  @media (min-width: 85em)
+    width: 300px
+    display: block
+
+  @media (min-width: 95em)
+    width: 360px
+    display: block
+
+.toc a.toc-active
+  font-weight: bold
+  transition: all 0.125s ease-in 0s
+  // transform: scale(1.05); 
+  font-size: 15px
+  color: $link-color
+
+.toc ul
+  list-style-type: none
+  margin-bottom: 0.1rem
+  padding-left: 0rem
+
+.toc li
+  padding-left: .5rem
+
+.toc a
+  color: $light
+  font-size: 15px
+  text-decoration: none
+
+.toc a:hover
+  color: $link-color
