@@ -4,7 +4,6 @@ name: "wookey name"
 author: "Blog Author"
 description: "wookey description"
 url: https://wo3okey.github.io/
-baseurl: /blog
 
 # Post
 defaults:  # 페이지의 머리말에 선언하지 않아도 아래 내용들은 기본값으로 적용됨.
