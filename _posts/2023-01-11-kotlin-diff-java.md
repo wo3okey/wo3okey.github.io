@@ -11,13 +11,13 @@ tags: [kotlin, java]
 
 ## 1. Kotlin을 좋아하는 이유 
 
-|항목|Java|Kotlin|
-|------|---|---|------|
-|Null Safe|X|O // 그저 감사하고 행복|
-|Extention|X|O // 사기급 기능|
-|Checked Exception|O|X // trade off지만 과감한 선택|
-|Coroutines|X|O // 사기급 편리함|
-|Smart Casts|X|O // 좋아|
+|항목|Java|Kotlin|이유|
+|-|-|-|-|
+|Null Safe|X|O|그저 감사하고 행복|
+|Extention|X|O|사기급 기능|
+|Checked Exception|O|X|trade off지만 과감한 선택|
+|Coroutines|X|O|사기급 편리함|
+|Smart Casts|X|O|좋아|
 
 ### Null Safe
 필요성에 대해서는 두말하면 잔소리다. 존재만으로도 너무 행복하다. 
@@ -45,9 +45,8 @@ fun nullReturnFunction(): Int? {
 ### Extention
 공통적으로 사용되는 범용성 코드를 잘 만들었을때 뽕맛은 개발자라면 공감할 듯하다.
 
-kotlin에서는 extention 확장함수를 지원한다. 어떤 클래스에 함수를 추가하는 기능이며, extention을 붙여놓은 객체에 `.` 찍으면 내가 만든 메소드를 사용할 수 있기에 마치 라이브러리를 만든 느낌을 받을 수 있다. json를 다루거나, 자주쓰이는 String 기능을 만들거나 등 불필요한 코드 또는 공통의 기능을 만들때 사용하면 좋다. 좋은 기능이나 자유도가 높기에 무차별하게 사용하면 욕먹기 딱 좋을 수 있다. 특정 클래스에서만 사용하거나 특정 컬렉션에서만 사용하는 등 개인적인 이유로 사용하기에는 일반 비즈니스 함수로 명확하게 개발하는것을 추천한다.
+kotlin에서는 extention 확장함수를 지원한다. 어떤 클래스에 함수를 추가하는 기능이며, extention을 붙여놓은 객체에서 내가 만든 메소드를 사용할 수 있기에 마치 라이브러리를 만든 느낌을 받을 수 있다. json를 다루거나, 자주쓰이는 String 기능을 만들거나 등 불필요한 코드 또는 공통의 기능을 만들때 사용하면 좋다. 좋은 기능이나 자유도가 높기에 무차별하게 사용하면 욕먹기 딱 좋을 수 있다. 특정 클래스에서만 사용하거나 특정 컬렉션에서만 사용하는 등 개인적인 이유로 사용하기에는 일반 비즈니스 함수로 명확하게 개발하는것을 추천한다.
 
-`Kotlin`
 {% highlight kotlin %}
 
 fun List<Int>.firstPlusNum(num: Int): Int {
@@ -64,7 +63,6 @@ fun main() {
 
 kotlin에서는 특정 Object 하위의 모든 클래스에는 extention이 적용가능하다. 예시로는 Int타입 List의 첫번째 element에 파라미터로 받은 num값을 더해서 반환하도록 작성했으며, 마치 Collection에서 지원하는 메소드인것 처럼 보여지고 있다. 코드를 읽는 입장에서 심신이 편-안하다.
 
-`Java`
 {% highlight java %}
 
 public static int firstPlusNum(Collection<Integer> collection, int num) {
@@ -84,16 +82,14 @@ kotlin에서의 extention 표현법은 알았고, 이를 java코드로 변환하
 ### Checked Exception
 왜지? 라고 의문을 들 수 있는 kotlin의 특징이 있다. checked exception을 지원하지 않는 것이다.
 
-java에서는 Thread를 핸들링하거나 Databse, File, Stream 등 IO에 관련된 영역이나 그외 다방면으로 checked exception을 컴파일 단계에서 처리하도록 강제화한다. 하지만 kotlin에서는 이를 과감하게 포기했다.
-
-`Kotlin`
 {% highlight kotlin %}
 
 Thread.sleep(1000)
 
 {% endhighlight %}
 
-`Java`
+kotlin에서는 Thread에 대한 처리에 묻지도 따지지도 않고 실행 가능하다.
+
 {% highlight java %}
 
 try {
@@ -104,7 +100,7 @@ try {
 
 {% endhighlight %}
 
-java에서는 `Thread.sleep(1000);` 까지만 입력하면 sleep에 redline과 함께 컴파일 에러가 발생한다. 하지만 kotlin에서는 묻지도 따지지도 않고 실행된다. 이토록 처리해둔 이유는 아래와 같다.
+java에서는 `Thread.sleep(1000);` 까지만 입력하면 sleep에 redline과 함께 컴파일 에러가 발생한다. java는 Thread를 핸들링하거나 Databse, File, Stream 등 IO에 관련된 영역이나 그외 다방면으로 checked exception을 컴파일 단계에서 처리하도록 강제화한다. 이토록 처리해둔 이유는 아래와 같다.
 * checked exception은 비즈니스 로직을 매우 지저분하게 만든다.
 * exception을 강제화 해도 대부분의 개발자는 유의미한 exeption 핸들링을 하지않는다.
 
