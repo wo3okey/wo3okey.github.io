@@ -3,7 +3,7 @@
         <div class="col-12">
             <div id="search-bar">
                 <i class="fa fa-search" aria-hidden="true"></i>
-                <input id="search-input" type="text" placeholder="Search..." />
+                <input class="search" id="search-input" type="text" placeholder="검색어를 입력하세요..." />
             </div>
             <ul id="results-container"></ul>
         </div>
@@ -19,10 +19,14 @@
         searchInput: document.getElementById('search-input'),
         resultsContainer: document.getElementById('results-container'),
         json: '{{ site.baseurl }}/search.json',
-        searchResultTemplate: '<li><a href="{url}" title="{desc}" target="_blank">{title}</a></li>',
+        searchResultTemplate: 
+        '<li>' + 
+            '<a href="{url}" title="{desc}" target="_blank">{title}</a>' +
+            ' <time> // {date} </time>' +
+        '</li>',
         noResultsText: 'No results found',
         limit: 10,
         fuzzy: false,
-        exclude: ['Welcome']
+        // exclude: ['Welcome']
     });
 </script>

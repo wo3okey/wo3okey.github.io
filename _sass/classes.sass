@@ -1,3 +1,9 @@
+.search
+  border-radius: 2px;
+  border: 1.5px solid #68f;
+  padding: 0.4em 0.8em;
+  transition: .2s background, .2s color;
+  
 .title
   font-size: 1.25em
 
@@ -142,22 +148,19 @@ a:hover .icon
 .toc
   position: absolute
   right: 0px
-  width: 350px
   color: $light
   overflow-y: auto
   overflow-x: hidden
-
+  margin-top: 6em
+  padding-right: 20px
   display: none
-  @media (min-width: 75em)
-    width: 240px
+  
+  @media (min-width: 1400px)
+    width: 280px
     display: block
 
-  @media (min-width: 85em)
-    width: 300px
-    display: block
-
-  @media (min-width: 95em)
-    width: 360px
+  @media (min-width: 1680px)
+    width: 480px
     display: block
 
 .toc a.toc-active

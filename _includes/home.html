@@ -1,3 +1,8 @@
+<header>
+  <!-- <a href="{{ "/" | relative_url }}" class="title">{{ site.title | escape }}</a> -->
+  <!-- {% include menu.html menu=pages %} -->
+{% include search.html %}
+</header>
 {%- assign posts = paginator.posts | default: site.posts -%}
 {% for post in posts %}
   <article>
