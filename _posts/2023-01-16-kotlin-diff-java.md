@@ -107,7 +107,102 @@ java에서는 `Thread.sleep(1000);` 까지만 입력하면 sleep에 redline과 �
 이러한 이유로 kotlin에서는 과감하게 checked exception을 버린것이다. 어찌보면 발생할 수 있는 exception 위험에 열려있는것 같아 보이지만, 무의미하게 throw 처리를 해놓을바엔 한대 뚜들겨 맞고 필요에따라 적절히 `try catch` 문으로 유의미하게 처리하는 것도 좋아보인다. 다만 java를 사용해보지 않고 kotlin로 입문한 개발자는 어떠한 구문에서 checked exception이 발생될 수 있는지 조차 모를 수 있겠다. 같이 협업하면 조금 난감할지도...
 
 ### Coroutines
-corutine은 kotlin에만 등장하는 개념이며 java에서는 Future, CompletableFuture로 표현할 수 있다.
+비동기 처리가 제일 쉬웠어요. (위험할 소리..😇)
+
+corutine은 비동기 처리를 굉장히 쉽게 처리 할 수 있도록 지원하는 kotlin 라이브러리다. java에서는 Thread, Callable, Runnable, CompletableFuture 등 다양하게 비동기 개발 방법이 있지만, 예시에서는 CompletableFuture과 비교한다. 비동기 처리시 함께 고민해야할 자원 관리, 동시성 제어, 트랜잭션 처리 등의 내용은 다루지 않는다. just corutine의 편리함만 다룬다.
+
+
+`Java`
+
+{% highlight java %}
+
+class Pizza {
+    final String name;
+    final int minute;
+
+    public Pizza(String name, int minute) {
+        this.name = name;
+        this.minute = minute;
+    }
+
+    public Pizza makePizza() {
+        try {
+            Thread.sleep(this.minute); // make pizza time
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(this.name + "를 " + this.minute + "분만에 완성했습니다.");
+
+        return this;
+    }
+}
+
+public class AsyncTest {
+    public static void makePizzaAsync(List<Pizza> pizzas) {
+        List<CompletableFuture<Pizza>> futures = pizzas.stream()
+                .map(pizza -> CompletableFuture.supplyAsync(() -> pizza.makePizza()))
+                .collect(Collectors.toList());
+
+        futures.stream()
+                .map(CompletableFuture::join)
+                .collect(Collectors.toList());
+    }
+
+    public static void main(String[] args) {
+        final List<Pizza> pizzas = Arrays.asList(
+                new Pizza("페퍼로니 피자", 10),
+                new Pizza("불고기 피자", 40),
+                new Pizza("하와이언 피자", 30),
+                new Pizza("콰트로치즈 피자", 20)
+        );
+
+        makePizzaAsync(pizzas);
+    }
+}
+
+{% endhighlight %}
+
+
+`Kotlin`
+{% highlight kotlin %}
+
+fun main() {
+    val pizzas = listOf(
+        Pizza("페퍼로니 피자", 10),
+        Pizza("불고기 피자", 40),
+        Pizza("하와이언 피자", 30),
+        Pizza("콰트로치즈 피자", 20)
+    )
+
+    makePizzaAsync(pizzas)
+}
+
+fun makePizzaAsync(pizzas: List<Pizza>) {
+    runBlocking(Dispatchers.IO) {
+        val defer = pizzas.map {async { it.makePizza() }}
+        defer.awaitAll()
+    }
+}
+
+data class Pizza(
+    val name: String,
+    val minute: Int
+) {
+    fun makePizza(): Pizza {
+        Thread.sleep(this.minute.toLong())
+        println(this.name + "를 " + this.minute + "분만에 완성했습니다.");
+        return this
+    }
+}
+
+{% endhighlight %}
+
+> 페퍼로니 피자를 10분만에 완성했습니다. <br>
+콰트로치즈 피자를 20분만에 완성했습니다. <br>
+하와이언 피자를 30분만에 완성했습니다. <br>
+불고기 피자를 40분만에 완성했습니다.
+
+두 언어 모두 결과는 위와같이 로직상 Thread sleep time 순으로 동일하게 프린트된다. main 메소드나 Pizza 객체부를 제외하고 `makePizzaAsync` 메소드를 보면 비동기 처리를 얼마나 간편하게 처리할 수 있는지 알 수 있다.
 
 
 ## 2. Kotlin 성능 비교
