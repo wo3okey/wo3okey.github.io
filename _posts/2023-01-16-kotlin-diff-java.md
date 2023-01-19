@@ -204,6 +204,92 @@ data class Pizza(
 
 두 언어 모두 결과는 위와같이 로직상 Thread sleep time 순으로 동일하게 프린트된다. main 메소드나 Pizza 객체부를 제외하고 `makePizzaAsync` 메소드를 보면 비동기 처리를 얼마나 간편하게 처리할 수 있는지 알 수 있다.
 
+### Smart Casts
+
+시몬스 같은 편안함 그 잡채다. 코드를 `ability` 메소드를 보면 바로 직감할 것이다.
+
+`Java`
+{% highlight java %}
+
+interface Animal { String getName(); }
+
+class Dog implements Animal {
+    private final String name;
+
+    Dog(String name) {this.name = name;}
+
+    @Override
+    public String getName() {return this.name;}
+    public String running() {return "달려요.";}
+}
+
+class Bird implements Animal {
+    private final String name;
+
+    Bird(String name) {this.name = name;}
+
+    @Override
+    public String getName() {return this.name;}
+    public String flying() {return "날아요.";}
+}
+
+public class SmartCastTest {
+    public static void main(String[] args) {
+        Dog dog = new Dog("개");
+        Bird bird = new Bird("새");
+
+        List<Animal> animals = Arrays.asList(dog, bird);
+        animals.forEach(animal -> {
+            System.out.println(animal.getName() + "는 " + ability(animal));
+        });
+    }
+
+    public static String ability(Animal animal) {
+        if (animal instanceof Dog) {
+            Dog dog = (Dog)animal;
+            return dog.running();
+        }
+
+        if (animal instanceof Bird) {
+            Bird dog = (Bird)animal;
+            return dog.flying();
+        }
+
+        throw new RuntimeException("동물이 아닙니다.");
+    }
+}
+
+{% endhighlight %}
+
+`Kotlin`
+{% highlight kotlin %}
+
+interface Animal { val name: String }
+class Dog(override val name: String) : Animal { fun running(): String = "달려요." }
+class Bird(override val name: String) : Animal { fun flying(): String = "날아요." }
+
+fun ability(animal: Animal): String {
+    return when (animal) {
+        is Dog -> animal.running()
+        is Bird -> animal.flying()
+        else -> throw RuntimeException("동물을 입력하세요.")
+    }
+}
+
+fun main() {
+    val dog = Dog("개")
+    val bird = Bird("새")
+
+    val animals = listOf(dog, bird)
+    animals.forEach {
+        println("${it.name}는 ${ability(it)}")
+    }
+}
+
+{% endhighlight %}
+
+java에는 `instanceof` 이후에도 직접 Animal을 구현체로 down casting 해줘야한다. 하지만 kotlin은 `is` 키워드와 함께 캐스팅된 결과를 받고, 이를 바로 사용할 수 있다. 타입 체크와 변환까지 한번에 지원되는 기능이며 `is` 라는 키워드 자체가 가독성 측면에서도 너무 직관적이고 명확하다. 코드길이 차이는 두말할 것 없다.
+
 
 ## 2. Kotlin 성능 비교
 kotlin과 java의 성능을 비교해보고자 한다. 벤치마크 스펙은 아래와 같다.
