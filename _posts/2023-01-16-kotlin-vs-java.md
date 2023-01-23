@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 그래서 kotlin을 선택한 이유가 뭔데?
+title: 그래서 kotlin을 선택한 이유는?
 categories: kotlin
 tags: [kotlin, java]
 ---
@@ -9,7 +9,7 @@ tags: [kotlin, java]
 
 kotlin으로 프로젝트를 진행한지 어느덧 1년 정도가 되었다. 하지만 한번도 java와 비교하여 kotlin의 장점을 깊이 생각해본 적은 없는 것 같다. java와 비교하여 현재 kotlin을 선택한 이유를 얘기해보고자 한다. 참고로 언어의 기본적인 문법은 다루지 않는다.
 
-## 1. Kotlin 선택의 이유
+## 1. Kotlin의 매력 포인트
 
 ### Null Safe
 필요성에 대해서는 두말하면 잔소리다. null에 대한 지원만으로도 너무 행복하다. 
@@ -112,7 +112,6 @@ corutine은 비동기 처리를 굉장히 쉽게 처리 할 수 있도록 지원
 
 
 `Java`
-
 {% highlight java %}
 
 class Pizza {
@@ -477,12 +476,15 @@ fun changeName1(person: Person): Person {
 * 개발 공부 자체를 처음 배우는 입문자에게 추천하기 어려울 것 같다. 아무래도 kotlin의 기본 base는 JVM java이며, 특징을 모른채 개발하게 된다면 기본적이고 중요한 지식을 많이 놓칠 수 있다고 생각된다.
 
 
-## 3. 결론
+## 3. 그래서?
 기존 java의 사용자라면 충분히 메리트를 느끼고 kotlin에게 매력을 느낄 수 있을 것이다. 나도 학부생 시절 포함하여 개발자 커리어 전부를 java로 개발했다. 하지만 익숙하면서도 많은 변화를 가져다준 kotlin의 릴리즈를 지켜보며 과감하게 주 언어를 변경할 수 있었다. 포스트에 언급하지 않은 kotlin의 장점과 단점은 더 많이 있겠지만 kotlin을 주 개발 언어로 선택한 이유를 요약하면 아래와 같이 정리 할 수 있을것 같다.
 
 * Concise (간결성)
 * Safe (안정성)
 * Interoperable (상호운용가능성)
+
+결국 아래와 같은 타겟에게 kotlin을 추천한다.
+> java 실무 경험이 있으며, 간결하고 명료한 jvm 기반의 코드를 원하는 개발자
 
 
 
