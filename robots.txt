@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://wo3okey.github.io/sitemap.xml

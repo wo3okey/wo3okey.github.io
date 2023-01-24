@@ -486,10 +486,6 @@ fun changeName1(person: Person): Person {
 결국 아래와 같은 타겟에게 kotlin을 추천한다.
 > java 실무 경험이 있으며, 간결하고 명료한 jvm 기반의 코드를 원하는 개발자
 
-
-
-<hr>
-`ref.`
-
+{% include ref.html %}
 * <https://www.makeuseof.com/kotlin-vs-java/#code-volume-amp-speed-of-coding>
 * <https://kotlinlang.org/docs/comparison-to-java.html#what-kotlin-has-that-java-does-not>
