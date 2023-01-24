@@ -5,3 +5,7 @@
 Gemfile.lock
 _site
 *.gem
+
+seo.html
+analytics.html
+giscus.html
