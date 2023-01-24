@@ -1,14 +1,17 @@
 <header>
-  <!-- <a href="{{ "/" | relative_url }}" class="title">{{ site.title | escape }}</a> -->
-  <!-- {% include menu.html menu=pages %} -->
-{% include search.html %}
+  <span class="title">🧑‍💻</span>
+  <!-- <input class="search" id="search-input" type="text" placeholder="검색어를 입력하세요..." /> -->
+  <!-- <a href="{{ "/search" | relative_url }}" class="title">search</a> -->
+  {% include search.html %}
+  {% include menu.html menu=pages %}
 </header>
+<h1 class="post-title"></h1>
 {%- assign posts = paginator.posts | default: site.posts -%}
 {% for post in posts %}
   <article>
     {% include meta.html post=post preview=true %}
-    {{ post.excerpt }}
-    <div class="more"><a href="{{ post.url | relative_url }}">더보기</a></div>
+    <a href="{{ post.url | relative_url }}">{{ post.excerpt }}</a>
+    <!-- <div class="more"><a href="{{ post.url | relative_url }}">더보기</a></div> -->
   </article>
 {% endfor %}
 
