@@ -3,7 +3,7 @@
   <div class="dropdown-content" id="myDropdown">
     {% for category in site.categories %}
     {% for post in category[1] limit:1%}
-        <a href="{{ post.url }}">{{ category | first }}<span class="badge">{{ category | last | size }}</span></a>
+        <a>{{ category | first }}<span class="badge">{{ category | last | size }}</span></a>
     {% endfor %} 
     {% endfor %}
   </div>
