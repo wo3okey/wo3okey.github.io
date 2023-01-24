@@ -1,6 +1,6 @@
 .search
   padding: 0.4em 0.8em
-  
+
 .title
   font-size: 1.25em
   padding-right: 10px
@@ -143,6 +143,7 @@ a:hover .icon
   .gi
     color: #a6e22e
 
+// toc
 .toc
   position: absolute
   right: 0px
@@ -152,7 +153,7 @@ a:hover .icon
   margin-top: 6em
   padding-right: 20px
   display: none
-  
+
   @media (min-width: 1400px)
     width: 260px
     display: block
@@ -164,7 +165,7 @@ a:hover .icon
 .toc a.toc-active
   font-weight: bold
   transition: all 0.125s ease-in 0s
-  // transform: scale(1.05); 
+  // transform: scale(1.05) 
   font-size: 15px
   color: $link-color
 
@@ -183,3 +184,43 @@ a:hover .icon
 
 .toc a:hover
   color: $link-color
+
+// dropdown categories
+.categories
+  font-size: 1.5em
+  padding-right: 5px
+
+li a, .dropbtn
+  display: inline-block
+  color: white
+  text-align: center
+  padding-bottom: 16px
+  text-decoration: none
+
+li.dropdown
+  display: inline-block
+
+.dropdown-content
+  display: none
+  position: absolute
+  background-color: #f9f9f9
+  min-width: 160px
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2)
+
+.dropdown-content a
+  color: black
+  padding: 12px 16px
+  text-decoration: none
+  display: block
+  text-align: left
+
+.dropdown-content a:hover 
+  background-color: #f1f1f1
+
+.show
+  display: block
+
+// badge
+.badge
+  margin-left: 1em
+  font-size: 1em
