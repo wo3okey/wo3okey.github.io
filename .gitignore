@@ -6,6 +6,6 @@ Gemfile.lock
 _site
 *.gem
 
-seo.html
-analytics.html
-giscus.html
+# seo.html
+# analytics.html
+# giscus.html
