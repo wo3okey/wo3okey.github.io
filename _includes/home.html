@@ -1,3 +1,4 @@
+<!-- header -->
 <header>
   <a href="javascript:void(0)" class="categories dropbtn" onclick="myFunction()">🧑‍💻</a>
   <div class="dropdown-content" id="myDropdown">
@@ -21,6 +22,7 @@
   </article>
 {% endfor %}
 
+<!-- paging -->
 {% if paginator.total_pages > 1 %}
   <footer>
     {% if paginator.previous_page %}<a href="{{ paginator.previous_page_path | relative_url }}">« newer posts</a>{% else %}<span></span>{% endif %}

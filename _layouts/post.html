@@ -2,6 +2,7 @@
 layout: default
 ---
 
+
 <header>
   <a href="{{ "/" | relative_url }}" class="title">posts</a>
 </header>
@@ -19,8 +20,14 @@ layout: default
   <noscript>Please enable JavaScript to view comments.</noscript>
   {% endif %}
   {% include giscus.html %}
+
+
+  <button><img id="go-top" class="back-to-top-btn" src="{{site.url}}/assets/images/go-top.png"></button>
+
 </article>
 
+
+<!-- toc -->
 <script>
   function getTOCNodes(master) {
     var nodes = Array.prototype.slice.call(master.getElementsByTagName("*"), 0);
@@ -95,4 +102,22 @@ layout: default
     }
 
   }, false);
+</script>
+
+<!-- go-top -->
+<script>
+var btn = document.getElementById("go-top");
+
+window.onscroll = function() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    btn.style.display = "block";
+  } else {
+    btn.style.display = "none";
+  }
+};
+
+btn.onclick = function() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+};
 </script>
