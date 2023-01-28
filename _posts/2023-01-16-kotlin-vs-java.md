@@ -5,7 +5,7 @@ categories: kotlin
 tags: [kotlin, java]
 ---
 
-![kotlin vs java]({{site.url}}/assets/images/posts/003.png )
+![kotlin vs java]({{site.url}}/assets/images/posts/kotlin-vs-java-01.png )
 
 kotlin으로 프로젝트를 진행한지 어느덧 1년 정도가 되었다. 하지만 한번도 java와 비교하여 kotlin의 장점을 깊이 생각해본 적은 없는 것 같다. java와 비교하여 현재 kotlin을 선택한 이유를 얘기해보고자 한다. 참고로 언어의 기본적인 문법은 다루지 않는다.
 
