@@ -5,7 +5,7 @@ categories: kotlin
 tags: [kotlin, java, inline]
 ---
 
-![kotlin inline]({{site.url}}/assets/images/posts/kotlin-inline-01.png )
+![kotlin inline]({{site.url}}/assets/images/posts/002.png )
 
 ## 1. inline
 kotlin 함수에 붙는 `inline` 키워드는 말 그대로 호출되는 특정 코드 line 사이에 특정 inline 키워드가 붙은 함수의 코드를 넣을(in) 수 있도록 지원하는 키워드이다.
