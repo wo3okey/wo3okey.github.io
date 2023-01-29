@@ -5,7 +5,7 @@ categories: kotlin
 tags: [kotlin, data class]
 ---
 
-![kotlin vs java]({{site.url}}/assets/images/posts/kotlin-data-class-01.png )
+![kotlin data class]({{site.url}}/assets/images/posts/kotlin-data-class-01.png )
 
 ## 1. Data class
 java의 lombok도 편하지만 kotlin data class는 기본적인 메소드들을 만들기 진짜 세상 편하다. 하지만 상속을 할때에는 꼭 유의해야하는 사항이 있다. 차근차근 알아보자.
