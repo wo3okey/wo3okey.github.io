@@ -1,5 +1,5 @@
 <header>
-  <!-- <h1>{{ include.post.title }}</h1> -->
   {%- assign date_format = site.date_format | default: "%Y-%m-%d" -%}
   <time datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: date_format }}</time>
 </header>
+<img class="icon" src="{{site.url}}/assets/images/icons/{{include.post.categories}}.png" /> {{include.post.categories}}

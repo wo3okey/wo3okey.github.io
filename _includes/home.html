@@ -1,11 +1,15 @@
 <!-- header -->
 <header>
-  <a href="javascript:void(0)" class="categories dropbtn" onclick="myFunction()">🧑‍💻</a>
+  <span id="me" href="javascript:void(0)" class="categories dropbtn" onclick="getCategories()">🧑‍💻</span>
   <div class="dropdown-content" id="myDropdown">
     {% for category in site.categories %}
-    {% for post in category[1] limit:1%}
-        <a>{{ category | first }}<span class="badge">{{ category | last | size }}</span></a>
-    {% endfor %} 
+      {% for post in category[1] limit:1%}
+          <a>
+            <img class="icon" src="{{site.url}}/assets/images/icons/{{post.categories}}.png" />
+            {{ category | first }}
+            <span class="badge">{{ category | last | size }}</span>
+          </a>
+      {% endfor %} 
     {% endfor %}
   </div>
 
@@ -17,7 +21,7 @@
 {% for post in posts %}
   <article>
     {% include meta.html post=post preview=true %}
-    <a href="{{ post.url | relative_url }}">{{ post.excerpt }}</a>
+    <a class="test" href="{{ post.url | relative_url }}">{{ post.excerpt }}</a>
     <!-- <div class="more"><a href="{{ post.url | relative_url }}">더보기</a></div> -->
   </article>
 {% endfor %}
@@ -33,18 +37,27 @@
 
 
 <script>
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
+let cnt = 0;
+function getCategories() {
+  document.getElementById("myDropdown").classList.toggle("show");
+  cnt++
+
+  if (cnt % 2 == 0) {
+    document.getElementById("me").innerHTML = "🧑‍💻"
+  } else {
+    document.getElementById("me").innerHTML = "🙋‍♂️"
+  }
 }
 
 window.onclick = function(e) {
   if (!e.target.matches('.dropbtn')) {
-
     var dropdowns = document.getElementsByClassName("dropdown-content");
     for (var d = 0; d < dropdowns.length; d++) {
       var openDropdown = dropdowns[d];
       if (openDropdown.classList.contains('show')) {
         openDropdown.classList.remove('show');
+        document.getElementById("me").innerHTML = "🧑‍💻"
+        cnt --;
       }
     }
   }
