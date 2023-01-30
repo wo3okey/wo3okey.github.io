@@ -1,5 +1,6 @@
 <div class="thumbnail">
   <div>
+    <!-- <img src="{{site.url}}/assets/images/icons/{{include.icon}}" /> -->
     <p>{{include.title}}</p>
   </div>
 </div>
@@ -17,8 +18,17 @@
   }
 
   .thumbnail p {
+    padding-left: 30px;
+    padding-right: 30px;
     text-align: center;
     font-size: 2vw;
     font-weight: bold;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .thumbnail p {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
   }
 </style>
