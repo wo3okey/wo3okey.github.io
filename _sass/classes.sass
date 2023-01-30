@@ -232,10 +232,32 @@ a:hover .icon
   filter: invert(1)
   opacity: 0.5
 
-  @media (max-width: 600px)
+  @media (max-width: 768px)
     right: 25px
 
 .icon 
   width: 20px
   height: auto
   padding-bottom: 3px
+
+.thumbnail
+  max-width: 1000px
+  max-height: 600px
+  background-color: #104ba1
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  text-align: center
+
+.thumbnail p
+  padding-left: 30px
+  padding-right: 30px
+  text-align: center
+  font-size: 2vw
+  font-weight: bold
+
+  @media (max-width: 768px)
+    padding-left: 10px
+    padding-right: 10px
+    font-size: 15px
