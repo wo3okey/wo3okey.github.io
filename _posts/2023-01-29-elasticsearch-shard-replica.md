@@ -5,7 +5,12 @@ categories: elasticsearch
 tags: [elasticsearch, shard, replica]
 ---
 
-{% include thumbnail.html icon="elasticsearch.png" color="#104ba1" title="그래서 elasticsearch shard, replica 값은 어떻게 설정할까?" %}
+{% 
+include thumbnail.html 
+icon="elasticsearch.png" 
+color="#104ba1" 
+title="그래서 elasticsearch shard, replica 값은 어떻게 설정할까?" 
+%}
 
 elasticsearch를 운영하기 위해서는 shard와 replica 갯수를 적절히 설정해야한다. 또한 index에 설정된 shard 수는 한번 설정하면 변경이 불가하기 때문에 운영중에 index를 변경하는 번거로움을 덜기 위해서는 적절하게 갯수를 선정하는 것이 중요하다. 그렇다고 한번 설정한 shard는 정답이 아니다. 시스템이 커지고 변경됨에 따라 언제든 변경의 여지를 두고 지켜봐야할 대상이다. 그래서 shard와 replia의 값 설정 기준에 대한 이야기를 한다.
 
