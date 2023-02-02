@@ -1,6 +1,5 @@
 # General
 title: "wookey blog"
-name: "wookey"
 author: "wookey"
 url: https://wo3okey.github.io/
 
@@ -33,18 +32,12 @@ analytics:
     tracking_id: "G-PK9JT037ST"
 
 # Menu
-navigation:                # accepts {file, title, url, icon, sidebaricon}
+navigation:
   - {file: "index.html"}
   - {file: "README.md"}
 
-external:                  # shows a footer with social links - for available icons see fontawesome.com/icons
-  - {title: Mail, icon: envelope, url: "mailto:niklasbuschmann@users.noreply.github.com"}
-  - {title: Github, icon: github, url: "https://github.com/niklasbuschmann/contrast"}
-  - {title: Subscribe, icon: rss, url: "/feed.xml"}
-
-comments:
-#  disqus_shortname: ""    # see https://disqus.com/
-#  isso_domain: ""         # see https://posativ.org/isso/
-
 plugins:
  - jekyll-feed
+
+category_list: [ kotlin, elasticsearch ]
+

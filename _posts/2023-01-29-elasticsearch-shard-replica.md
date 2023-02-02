@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 그래서 elasticsearch shard, replica 값은 어떻게 설정할까? 
-categories: elasticsearch
+categories: [elasticsearch]
 tags: [elasticsearch, shard, replica]
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 그래서 kotlin data class 상속은?
-categories: kotlin
+categories: [kotlin]
 tags: [kotlin, data class]
 ---
 

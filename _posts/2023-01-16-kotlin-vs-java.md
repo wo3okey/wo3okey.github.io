@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 그래서 kotlin을 선택한 이유는?
-categories: kotlin
+categories: [kotlin]
 tags: [kotlin, java]
 ---
 

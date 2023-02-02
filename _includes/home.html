@@ -4,7 +4,7 @@
   <div class="dropdown-content" id="myDropdown">
     {% for category in site.categories %}
       {% for post in category[1] limit:1%}
-          <a>
+          <a href="/categories/{{post.categories}}">
             <img class="icon" src="{{site.url}}/assets/images/icons/{{post.categories}}.png" />
             {{ category | first }}
             <span class="badge">{{ category | last | size }}</span>
@@ -22,7 +22,6 @@
   <article>
     {% include meta.html post=post preview=true %}
     <a class="test" href="{{ post.url | relative_url }}">{{ post.excerpt }}</a>
-    <!-- <div class="more"><a href="{{ post.url | relative_url }}">더보기</a></div> -->
   </article>
 {% endfor %}
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 그래서 elasticsearch shard 값은 왜 변경이 불가할까?
-categories: elasticsearch
+categories: [elasticsearch]
 tags: [elasticsearch, shard, lucene]
 ---
 

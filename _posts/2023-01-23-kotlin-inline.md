@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 그래서 kotlin inline은 무엇인가?
-categories: kotlin
+categories: [kotlin]
 tags: [kotlin, java, inline]
 ---
 
