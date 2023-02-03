@@ -6,13 +6,14 @@ layout: default
 <header>
   <a href="{{ "/" | relative_url }}" class="title">posts</a>
 </header>
-<h1 class="post-title"></h1>
+<h1></h1>
 <article class="post-article">
   <div class="toc">
     {% include toc.html html=content %}
   </div>
 
   {% include meta.html post=page %}
+  <div class="post-title"><p>{{page.title}}</p></div>
   {{ content }}
   {% if page.comments != false and site.comments.isso or site.comments.disqus %}
   <hr>
@@ -47,18 +48,11 @@ layout: default
     return headerNodes;
   }
 
-  var title = document.getElementsByClassName("post-title")[0];
-  var titleY = window.pageYOffset + title.getBoundingClientRect().top;
-  
   var article = document.getElementsByClassName("post-article")[0];
-
   var articleY = window.pageYOffset + article.getBoundingClientRect().top;
-
   var toc = document.getElementsByClassName("toc")[0];
-
   var headerNodes = getHeaderNodes(article);
   var tocNodes = getTOCNodes(toc);
-
   var before = undefined;
 
   document.addEventListener('scroll', function(e) {

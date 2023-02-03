@@ -16,12 +16,15 @@
   {% include search.html %}
   {% include menu.html menu=pages %}
 </header>
-<h1 class="post-title"></h1>
+<h1></h1>
 {%- assign posts = paginator.posts | default: site.posts -%}
 {% for post in posts %}
   <article>
     {% include meta.html post=post preview=true %}
-    <a class="test" href="{{ post.url | relative_url }}">{{ post.excerpt }}</a>
+    <a href="{{ post.url | relative_url }}">
+      <div class="post-title"><p>{{post.title}}</p></div>
+      {{ post.excerpt }}
+    </a>
   </article>
 {% endfor %}
 

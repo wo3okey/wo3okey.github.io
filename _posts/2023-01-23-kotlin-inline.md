@@ -5,7 +5,9 @@ categories: [kotlin]
 tags: [kotlin, java, inline]
 ---
 
-{% include thumbnail.html icon="kotlin.png" color="#104ba1" title="그래서 kotlin inline은 무엇인가?" %}
+inline 키워드는 kotlin에서 만들어진 함수 아래 단위에서 사용할 수 있는 키워드 문법이다. 장단점을 비교하고 목적성에 대해 정리해보고자 한다.
+
+<hr>
 
 ## 1. inline
 kotlin 함수에 붙는 `inline` 키워드는 말 그대로 호출되는 특정 코드 line 사이에 특정 inline 키워드가 붙은 함수의 코드를 넣을(in) 수 있도록 지원하는 키워드이다.

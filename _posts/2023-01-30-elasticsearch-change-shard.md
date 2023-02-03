@@ -5,14 +5,9 @@ categories: [elasticsearch]
 tags: [elasticsearch, shard, lucene]
 ---
 
-{% 
-include thumbnail.html 
-icon="elasticsearch.png" 
-color="#104ba1" 
-title="그래서 elasticsearch shard 값은 왜 변경이 불가할까?" 
-%}
+결론부터 얘기하면 기생성된 index의 shard 값을 변경하지 못하는 이유는 lucene(루씬) 때문이다. lucene과 이를 구성하고 있는 segment, 그리고 shard와 함께 얘기해보고자 한다.
 
-결론부터 얘기하면 기생성된 index의 shard 값을 변경하지 못하는 이유는 lucene(루씬) 때문이다. 
+<hr>
 
 ## 1. lucene
 lucene은 elasticsearch의 핵심이 되는 검색엔진 그 자체이며, java로 만들어진 고성능 정보검색 오픈소스 라이브러리이다. 결국 elasticsearch는 검색 및 색인 기능은 직접 구현한게 아닌 lucene을 사용한 것이다. 그 외 REST api, 분산처리, 고가용성을 위한 shard/replica 등의 시스템을 추가하여 지금의 elasticsearch 스펙이 완성된 것이다. 

@@ -5,7 +5,9 @@ categories: [kotlin]
 tags: [kotlin, data class]
 ---
 
-{% include thumbnail.html icon="kotlin.png" color="#104ba1" title="그래서 kotlin data class 상속은?" %}
+java의 lombok을 사용할 필요 없도록 잘 설계된 kotlin의 data class의 활용성은 한번 사용해본 개발자라면 공감할 것이다. 이번에는 data class를 상속의 관점에서 정리 해본다.
+
+<hr>
 
 ## 1. Data class
 java의 lombok도 편하지만 kotlin data class는 기본적인 메소드들을 만들기 진짜 세상 편하다. 하지만 상속을 할때에는 꼭 유의해야하는 사항이 있다. 차근차근 알아보자.
