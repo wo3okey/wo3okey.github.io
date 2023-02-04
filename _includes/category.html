@@ -1,0 +1,12 @@
+{% assign category = page.categories | default: page.title %}
+<img class="icon" src="{{site.url}}/assets/images/icons/{{ category }}.png" /> {{ category }}
+
+<div class="category">
+    {% for post in site.categories[category] %}
+    <div>
+        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+        {%- assign date_format = site.date_format | default: "%Y-%m-%d" -%}
+        <time datetime="{{ post.date | date_to_xmlschema }}"> // {{ post.date | date: date_format }}</time>
+    </div>
+    {% endfor %}
+</div>

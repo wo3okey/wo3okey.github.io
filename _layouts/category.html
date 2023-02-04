@@ -7,15 +7,5 @@ layout: default
 </header>
 <h1></h1>
 <article>
-<img class="icon" src="{{site.url}}/assets/images/icons/{{ page.title }}.png" /> {{ page.title }}
-<header class="category-header">
-    {% assign category = page.category | default: page.title %}
-    {% for post in site.categories[category] %}
-    <div>
-        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-        {%- assign date_format = site.date_format | default: "%Y-%m-%d" -%}
-        <time datetime="{{ post.date | date_to_xmlschema }}"> // {{ post.date | date: date_format }}</time>
-    </div>
-    {% endfor %}
-</header>
+{% include category.html page=page %}
 </article>
