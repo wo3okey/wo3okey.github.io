@@ -14,7 +14,7 @@ lucene은 elasticsearch의 핵심이 되는 검색엔진 그 자체이며, java�
 
 ## 2. segment
 
-![elasticsearch shard replica]({{site.url}}/assets/images/posts/2023-01-30-elasticsearch-change-shard-01.png )
+![elasticsearch shard replica]({{site.url}}/assets/images/posts/elasticsearch-change-shard-01.png )
 
 es의 index는 es shard 내 각자 lucene 라이브러리를 포함하고 있으며, lucene은 각각 독립적인 segment를 구성하고 있다. segment는 색인이 될 때 마다 새롭게 만드는 형태로 개발되어있다. 이때 segment는 내부에 역색인 구조로 데이터가 저장되어 있으며, lucene은 commit point라는 자료구조를 통해 segment들을 관리한다. 새로운 색인 작업이 생길때마다 segment를 새로 생성하며, 이를 commit point에 기록하는 형태이다. 
 

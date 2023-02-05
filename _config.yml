@@ -25,11 +25,12 @@ show_frame: true           # adds a gray frame to the site
 show_sidebar: false        # show a sidebar instead of the usual header
 minimal: false             # use a dark header
 
-# Analytics
+# Google
 analytics:
   provider: "google-gtag"
   google:
     tracking_id: "G-PK9JT037ST"
+google_site_verification: 
 
 # Menu
 navigation:
@@ -38,6 +39,3 @@ navigation:
 
 plugins:
  - jekyll-feed
-
-category_list: [ kotlin, elasticsearch ]
-
