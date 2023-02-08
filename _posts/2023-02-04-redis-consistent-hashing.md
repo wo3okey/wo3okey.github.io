@@ -28,7 +28,8 @@ key가 유입되면 특정 hash(key) 함수의 결과에 의해 특정 node로 �
 
 ![elasticsearch shard replica]({{site.url}}/assets/images/posts/redis-consistent-hashing-02.png)
 
-만약 nodeC가 장애 또는 서버통신 문제로 제기능을 할 수 없는 상태가 되었다고 하자. 그렇다면 nodeC에 분산된 key는 어떻게 될 것인가? 마음같아선 nodeA, B에 동일하게 하나씩 나눠주고 싶겠지만 결국 최초 정해진 분산 방법에 따라 전체 재해싱을 진행할 수 밖에 없다. 재해싱 후 nodeB, B의 평화에 곧 엄청난 불균형이 찾아왔다. 이는 곧 재해싱 만으로도 server에 부하를 가져오지만, 각 node 간의 key 불균형도 피할 수 없다. 그래서 고안된 방법 중 하나인 `consistent hashing`([논문링크](https://en.wikipedia.org/wiki/Consistent_hashing#History))을 소개한다.
+만약 nodeC가 장애 또는 서버통신 문제로 제기능을 할 수 없는 상태가 되었다고 하자. 그렇다면 nodeC에 분산된 key는 어떻게 될 것인가? 마음같아선 nodeA, B에 동일하게 하나씩 나눠주고 싶겠지만 결국 최초 정해진 분산 방법에 따라 전체 재해싱을 진행할 수 밖에 없다. 재해싱 후 nodeB, B의 평화에 곧 엄청난 불균형이 찾아왔다. 이는 곧 재해싱 만으로도 server에 부하를 가져오지만, 각 node 간의 key 불균형도 피할 수 없다. 
+그래서 고안된 방법 중 하나인 `consistent hashing` 을 소개한다. 관련 논문은 <ins>[이곳](https://en.wikipedia.org/wiki/Consistent_hashing#History)</ins>에서 볼 수 있다.
 
 ### consistent hashing
 consistent hashing은 node의 수에 의존하지 않고 추가/삭제된 node가 있을때 재분산 해야하는 key의 수를 최소화 하기 위한 방법이다. hash ring이라 불리는 추상적인 원 또는 링 형태에 CRC-32(2^32)라고 하는 hash 연산의 결과에 따라 node를 할당하고, 인입되는 key에 대해서 동일한 hash 연산을 통해 어떤 node에 배치할 지 결정해주는 key 분산 처리 방법이다. 코드와 시나리오를 보며 이해 해보자.
@@ -161,8 +162,8 @@ hash slot은 consistent hashing과 비슷한 개념을 redis cluster에서 일�
 > HASH_SLOT = CRC16(key) mod 16384
 
 redis cluster는 총 16384개의 key space를 갖고, 이를 위해 16384 mode 연산의 결과로 key를 slot에 할당한다. 
-slot의 갯수를 16384로 제한한 이유는 <ins>[여기](https://github.com/redis/redis/issues/2576#issuecomment-101257195)</ins>에서 설명하고 있으며, 결국 효율적인 key 분산을 위한 설정으로 보인다.
-이에따라 cluster는 최대 1000개의 master node를 갖을 수 있도록 제한하고 있다. 그렇다면 hash slot은 어떻게 node와 key를 관리하는지 확인해보자. (redis cluster에 대한 내용인 만큼 redis 아이콘으로 node를 그려봄ㅎ)
+slot의 갯수를 16384로 제한한 이유는 <ins>[이곳](https://github.com/redis/redis/issues/2576#issuecomment-101257195)</ins>에서 설명하고 있으며, 결국 효율적인 key 분산을 위한 설정으로 보인다.
+이에따라 cluster는 최대 1000개의 master node를 갖을 수 있도록 제한하고 있다. 그렇다면 hash slot은 어떻게 node와 key를 관리하는지 확인해보자.
 
 * node(master): 3
 * replica(slave): 1
