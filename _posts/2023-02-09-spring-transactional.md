@@ -10,8 +10,7 @@ spring에서 각 transaction를 묶어주고 관리해주는 역할의 `@Transac
 ## 1. transaction
 transaction은 DB의 상태 변경을 뜻한다. 코드도 git에 commit 하듯 DB도 변경점에 대한 savepoint를 남기며, 이는 rollback 가능한 지점을 뜻한다.
 
-### ACID
-흔히 `애시드`라고 불리는 transaction의 성질 4가지가 있다.
+흔히 `ACIS(애시드)`라고 불리는 transaction의 성질 4가지가 있다.
 
 * Atomicity(원자성): 한 transaction 내에서 실행한 작업들은 하나의 단위로 처리
 * Consistency(일관성): transaction은 일관성 있는 데이터베이스 상태를 유지
@@ -263,7 +262,56 @@ org.springframework.transaction.IllegalTransactionStateException: Existing trans
 ```
 한번도 실무에서 사용해본 적은 없다. 이론상 transaction 처리가 절대 발생하면 안되는 메소드에 실수로 transaction 처리가 되는 것을 방지하기 위함으로 보인다.
 
-## 4. 그래서?
+## 4. isolation
+isolaction은 먼저 언급한 ACID 속성중 하나이다. 격리성 또는 고립성 이라고 부르는 isolation은 말그대로 transaction끼리 서로에게 얼마나 격리되어 있는지를 나타낸다. 쉽게 얘기하면 transaction이 다른 transaction에서 변경한 데이터를 어느정도 수준에서 볼 수 있도록 할 지 결정하는 요소이다. DB는 ACID의 특징에 따라 각 transaction이 독립적인 수행을 할 수 있도록 `locking`을 통해 transaction의 수행간에 다른 transaction이 관여하지 못하도록 제어한다. locking을 하게되면 동시처리 능력이 떨어지므로 결국 전체적인 성능이 떨어질 수 밖에 없고, 너무 느슨하게 lock의 범위를 줄인다면 잘못된 값을 읽고 쓰는 문제가 발생할 수 있다. 이에따라 ANSI/ISO 표준에는 4가지의 isolation level을 정의했다.
+
+### READ_UNCOMMITTED
+level0의 가장 낮은 transaction 격리 수준이며 대부분의 DBMS가 사용하지 않거나 권장하지 않는다.
+select가 실행할 때 shared lock이 걸리지 않는다.
+
+`dirty read` 현상이 발생될 수 있다.
+
+>dirty read: transaction의 변경 내용이 commit, rollback에 관계없이 다른 transaction에 적용됨
+
+* A transaction에서 wookey의 성적을 80점 -> 95점으로 변경
+* B transaction에서 학점을 정정하기 위해 wookey의 성적을 95점으로 조회하여 처리(dirty read)
+* 이때 A transaction에 예외가 발생하여 A transaction이 rollback 됨
+* 하지만 여전히 B transaction은 wookey의 성적을 95점으로 생각하고 이후 비즈니스 로직을 계속 수행
+
+
+### READ_COMMITTED
+level1의 transaction 격리 수준이며 대부분의 DBMS, Oracle 등에서 기본적으로 사용한다.
+select가 실행할 때 shared lock이 걸린다.
+한 transaction의 내용이 commit 되어야만 다른 transaction에서 조회가 가능하여, dirty read는 발생하지 않는다. 
+select시 실제 테이블 값이 아니라 undo 영역의 backup recode를 가져온다. 동일한 transaction에서 select 쿼리를 실행했을 때 항상 같은 결과를 보장해야 한다는 `repeatable read` 정합성에 어긋나는 `non repeatable read` 현상이 발생될 수 있다.
+
+> non repeatable read: 같은 transaction 내 동일한 값에 대해 commit이 일어나기 전과 commit 후 값이 달라짐
+
+* A transaction에서 wookey의 성적을 조회하니 80점으로 나옴
+* B transaction에서 wookey의 성적을 80점 -> 95점으로 변경(commit 완료)
+* A transaction에서 wookey의 성적을 다시 조회하니 90점으로 나옴
+
+얼핏보면 맞는 동작처럼 보일 수 있다. 하지만 한 transaction 내에서 select에 대한 일관된 데이터를 반환하지 않는다는 것은 문제를 발생시킬 수 있다. 하나의 transaction 내에서 동일한 데이터를 여러번 읽고 변경하는 비즈니스 로직이 있다면 데이터 일관성이 깨질 수도 있다.
+
+
+### REPEATABLE_READ
+level2의 transaction 격리 수준이며 mysql DBMS에서 사용한다.
+transaction이 시작되기 전 commit 된 정보에 대해서만 select가 가능하여 transaction이 끝날때 까지 select가 실행할 때 shared lock이 걸린다. 그래서 transaction 범위 내에서 조회한 내용이 항상 동일함을 보장함으로 dirty, non repeatable read은 발생하지 않는다. 다만 transaction의 시작 시점의 데이터를 계속 관리하고 일관성을 보장해야하기 때문에 transaction의 시간이 길수록 다중 버전 동시성 제어인 MVCC(multi-version concurrency control)를 관리해야 한다는 성능적 단점이 생긴다. 또한 `phantom read`이 발생될 수 있다.
+
+> phantom read: 한 transaction에서 일정 범위의 레코드를 두번 이상 읽을때 처음에 없던 결과가 추가/삭제 되어 결과가 달라져 보이는 현상
+
+* A transaction에서 성적이 80점 이상인 집단을 조회하니 13명이 나옴(남학생: 6명 / 여학생: 7명)
+* B transaction에서 남학생인 wookey의 성적을 80점 -> 75점으로 변경(commit 완료)
+* A transaction에서 성적이 80점 이상인 집단의 남학생을 조회하니 5명이 나옴
+
+이 또한 얼핏 맞는 동작처럼 보일 수 있다. 하지만 시작 전 select 동일한 정보에 대해서는 일관성을 유지하지만 B transaction이 commit 되어 A transaction에 조회 범위에 영향을 주어 한 transaction 내에서 마치 non repeatable read과 같이 동작하는 것 처럼 보이는 phantom read를 발생 시킬 수 있다.
+
+### SERIALIZABLE
+level3의 가장 높은 transaction 격리 수준이며 거의 사용하지 않는다.
+select, write 실행에 모두 lock을 선점한다. dirty read, non repeatable read, phantom read와 같은 문제가 발생하지 않으며, 일관성을 유지시킬 수 있는 가장 강력한 방법이다. 그 만큼 lock을 최대한으로 사용하기 때문에 동시 처리능력이 급격하게 떨어지고 결국 성능에 문제가 발생될 수 있다.
+
+
+## 5. 그래서?
 
 
 {% include ref.html %}
