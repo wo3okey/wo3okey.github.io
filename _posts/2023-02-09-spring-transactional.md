@@ -364,7 +364,7 @@ select, write 실행에 모두 lock을 선점한다. dirty read, non repeatable 
 ## 5. 그래서?
 ![elasticsearch shard replica]({{site.url}}/assets/images/posts/spring-transactional-01.png)
 
-그래서 `@Transactional`은 spring에서 편리하게 transaction 처리를 적용할 수 있는 매우 유용한 방법이며, DB 관련 로직에서는 때놓을 수 없는 손님이다.
+그래서 `@Transactional`은 spring에서 편리하게 transaction 처리를 적용할 수 있는 매우 유용한 방법이며, DB 관련 로직에서는 떼놓을 수 없는 손님이다.
 > @Transactional은 본인이 사용하는 DBMS와 처리 로직에 따라 전파수준과 고립수준을 잘 고려하여 사용하자.
 
 {% include ref.html %}
