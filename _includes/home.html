@@ -17,7 +17,7 @@
   {% include menu.html menu=pages %}
 </header>
 <h1></h1>
-{%- assign posts = paginator.posts | default: site.posts -%}
+{%- assign posts = paginator.posts -%}
 {% for post in posts %}
   <article>
     {% include meta.html post=post preview=true %}
@@ -28,14 +28,38 @@
   </article>
 {% endfor %}
 
-<!-- paging -->
 {% if paginator.total_pages > 1 %}
+<footer class="pagination">
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path | relative_url }}">&laquo; 이전</a>
+  {% else %}
+  {% endif %}
+
+  {% for page in (1..paginator.total_pages) %}
+    {% if page == paginator.page %}
+      <a style="color:darkorange;">{{ page }}</a>
+    {% elsif page == 1 %}
+      <a href="{{ '/' | relative_url }}">{{ page }}</a>
+    {% else %}
+      <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}">{{ page }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path | relative_url }}">다음 &raquo;</a>
+  {% else %}
+  {% endif %}
+</footer>
+{% endif %}
+
+<!-- paging -->
+<!-- {% if paginator.total_pages > 1 %}
   <footer>
     {% if paginator.previous_page %}<a href="{{ paginator.previous_page_path | relative_url }}">« newer posts</a>{% else %}<span></span>{% endif %}
     <span>page {{ paginator.page }} of {{ paginator.total_pages }}</span>
     {% if paginator.next_page %}<a href="{{ paginator.next_page_path | relative_url }}">older posts »</a>{% else %}<span></span>{% endif %}
   </footer>
-{% endif %}
+{% endif %} -->
 
 
 <script>

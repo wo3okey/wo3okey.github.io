@@ -11,10 +11,9 @@
         resultsContainer: document.getElementById('results-container'),
         json: '{{ site.baseurl }}/search.json',
         searchResultTemplate: 
-        '<div class="dropdown-content>' + 
-            '<a href="{url}" title="{desc}" target="_blank">{title}</a>' +
-            ' <time> // {date} </time>' +
-        '</div>',
+        '<a href="{url}" target="_blank">{title}</a>' +
+        '<time> // {date} </time>' +
+        '<br>',
         noResultsText: '검색 결과가 없습니다.',
         limit: 10,
         fuzzy: false,
