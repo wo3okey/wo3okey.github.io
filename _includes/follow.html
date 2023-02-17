@@ -1,0 +1,19 @@
+<button id="follow" class="follow">팔로우</button>
+<span style="float: right;" id="me" href="javascript:void(0)" class="categories dropbtn" onclick="getCategories()">🧑‍💻</span>
+<div></div>
+<div class="tooltip">
+    <a>이것은 툴팁입니다.</a>
+</div>
+
+<script>
+    const btn = document.getElementById("follow");
+    const tooltip = document.querySelector(".tooltip");
+
+    btn.addEventListener("click", function() {
+    if (tooltip.style.visibility === "visible") {
+        tooltip.style.visibility = "hidden";
+    } else {
+        tooltip.style.visibility = "visible";
+    }
+    });
+</script>

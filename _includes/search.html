@@ -1,6 +1,4 @@
-<input class="search" id="search-input" type="text" placeholder="검색어를 입력하세요..." />
-<ul id="results-container"></ul>
-
+<p id="results-container"></p>
 
 <!-- Script pointing to jekyll-search.js -->
 <script src="{{ site.baseurl }}/assets/js/simple-jekyll-search.min.js" type="text/javascript"></script>
@@ -11,7 +9,7 @@
         resultsContainer: document.getElementById('results-container'),
         json: '{{ site.baseurl }}/search.json',
         searchResultTemplate: 
-        '<a href="{url}" target="_blank">{title}</a>' +
+        '<a href="{url}">{title}</a>' +
         '<time> // {date} </time>' +
         '<br>',
         noResultsText: '검색 결과가 없습니다.',

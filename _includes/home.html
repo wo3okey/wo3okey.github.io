@@ -1,6 +1,9 @@
 <!-- header -->
 <header>
-  <span id="me" href="javascript:void(0)" class="categories dropbtn" onclick="getCategories()">🧑‍💻</span>
+  <input class="search" id="search-input" type="text" placeholder="검색어를 입력하세요..." />
+  {% include follow.html %}
+  {% include search.html %}
+
   <div class="dropdown-content" id="myDropdown">
     {% for category in site.categories %}
       {% for post in category[1] limit:1%}
@@ -12,9 +15,8 @@
       {% endfor %} 
     {% endfor %}
   </div>
-
-  {% include search.html %}
   {% include menu.html menu=pages %}
+  
 </header>
 <h1></h1>
 {%- assign posts = paginator.posts -%}
@@ -51,16 +53,6 @@
   {% endif %}
 </footer>
 {% endif %}
-
-<!-- paging -->
-<!-- {% if paginator.total_pages > 1 %}
-  <footer>
-    {% if paginator.previous_page %}<a href="{{ paginator.previous_page_path | relative_url }}">« newer posts</a>{% else %}<span></span>{% endif %}
-    <span>page {{ paginator.page }} of {{ paginator.total_pages }}</span>
-    {% if paginator.next_page %}<a href="{{ paginator.next_page_path | relative_url }}">older posts »</a>{% else %}<span></span>{% endif %}
-  </footer>
-{% endif %} -->
-
 
 <script>
 let cnt = 0;
