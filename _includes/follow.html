@@ -1,5 +1,5 @@
 <button id="follow" class="follow">팔로우</button>
-<span style="float: right;" id="follow-me" href="javascript:void(0)" class="categories dropbtn" onclick="getCategories()">🧑‍💻</span>
+<span style="float: right;" id="follow-me" href="javascript:void(0)" class="categories" onclick="test()">🧑‍💻</span>
 
 <div class="tooltip">
     <div class="tooltip-show">
@@ -12,11 +12,10 @@
 
 <script>
     let cnt = 0;
-    const btn = document.getElementById("follow");
-    const tooltip = document.querySelector(".tooltip");
+    var btn = document.getElementById("follow");
+    var tooltip = document.querySelector(".tooltip");
 
-    btn.addEventListener("click", function() {
-        tooltip.classList.toggle("show");
+    btn.addEventListener("click", function(e) {
         cnt++
 
         if (cnt % 2 == 0) {
