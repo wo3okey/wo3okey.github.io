@@ -201,7 +201,6 @@ a:hover .icon
   position: absolute
   background-color: white
   min-width: 203px
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2)
 
 .dropdown-content a
   color: black
@@ -275,22 +274,25 @@ a:hover .icon
   margin-right: 5px
   text-decoration: none
 
-.follow
-  padding: 0.4em 0.8em
-  float: right
-
 .tooltip 
   visibility: hidden
   width: 100%
-  background-color: white
-  min-width: 203px
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2)
-  text-align: right
   float: right
+  display: flex
+  justify-content: flex-end
 
 .tooltip a
   color: black
   padding: 12px 16px
   text-decoration: none
   display: block
-  text-align: right
+
+.tooltip-show
+  background-color: white
+  position: absolute
+  min-width: 150px
+  margin-top: 10px
+
+.follow
+  padding: 0.4em 0.8em
+  float: right

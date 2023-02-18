@@ -1,19 +1,34 @@
 <button id="follow" class="follow">팔로우</button>
-<span style="float: right;" id="me" href="javascript:void(0)" class="categories dropbtn" onclick="getCategories()">🧑‍💻</span>
-<div></div>
+<span style="float: right;" id="follow-me" href="javascript:void(0)" class="categories dropbtn" onclick="getCategories()">🧑‍💻</span>
+
 <div class="tooltip">
-    <a>이것은 툴팁입니다.</a>
+    <div class="tooltip-show">
+        <a href="https://wo3okey.github.io/portfolio/" target="_blank">portfolio</a>
+        <a href="https://github.com/wo3okey" target="_blank">github</a>
+        
+        <a>email</a>
+    </div>
 </div>
 
 <script>
+    let cnt = 0;
     const btn = document.getElementById("follow");
     const tooltip = document.querySelector(".tooltip");
 
     btn.addEventListener("click", function() {
-    if (tooltip.style.visibility === "visible") {
-        tooltip.style.visibility = "hidden";
-    } else {
-        tooltip.style.visibility = "visible";
-    }
+        tooltip.classList.toggle("show");
+        cnt++
+
+        if (cnt % 2 == 0) {
+            document.getElementById("follow-me").innerHTML = "🧑‍💻"
+        } else {
+            document.getElementById("follow-me").innerHTML = "🙋‍♂️"
+        }
+
+        if (tooltip.style.visibility === "visible") {
+            tooltip.style.visibility = "hidden";
+        } else {
+            tooltip.style.visibility = "visible";
+        }
     });
 </script>

@@ -1,5 +1,8 @@
 <!-- header -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <header>
+  <span style="float: left;" id="me" href="javascript:void(0)" class="categories dropbtn" onclick="getCategories()"><i class="fa fa-bars"></i></span>
   <input class="search" id="search-input" type="text" placeholder="검색어를 입력하세요..." />
   {% include follow.html %}
   {% include search.html %}
@@ -55,12 +58,12 @@
 {% endif %}
 
 <script>
-let cnt = 0;
+let dropCnt = 0;
 function getCategories() {
   document.getElementById("myDropdown").classList.toggle("show");
-  cnt++
+  dropCnt++
 
-  if (cnt % 2 == 0) {
+  if (dropCnt % 2 == 0) {
     document.getElementById("me").innerHTML = "🧑‍💻"
   } else {
     document.getElementById("me").innerHTML = "🙋‍♂️"
@@ -75,7 +78,7 @@ window.onclick = function(e) {
       if (openDropdown.classList.contains('show')) {
         openDropdown.classList.remove('show');
         document.getElementById("me").innerHTML = "🧑‍💻"
-        cnt --;
+        dropCnt --;
       }
     }
   }
