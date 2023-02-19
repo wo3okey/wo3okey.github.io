@@ -40,6 +40,9 @@ navigation:
 plugins:
  - jekyll-feed
 
+gems:
+  - jekyll-paginate
+
 # Page
 paginate: 5                  # 페이징 처리 개수
 paginate_path: "/page:num/"   # URL 규칙
