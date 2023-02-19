@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <header>
-  <span style="float: left;" id="categories" href="javascript:void(0)" class="categories dropbtn" onclick="getCategories()"><i class="fa fa-bars"></i></span>
+  <span style="float: left;" id="categories" href="javascript:void(0)" class="categories dropbtn"><i class="fa fa-bars"></i></span>
   <input class="search" id="search-input" type="text" placeholder="검색어를 입력하세요..." />
   {% include follow.html %}
   {% include search.html %}
@@ -63,7 +63,7 @@
   var dropdown = document.getElementById("myDropdown");
 
   categories.addEventListener("click", function(e) {
-    dropCnt++
+    dropCnt++;
 
     if (dropCnt % 2 == 0) {
       categories.style.color = 'white';
@@ -71,6 +71,17 @@
     } else {
       categories.style.color = 'darkorange';
       dropdown.classList.add("show");
+    }
+  });
+
+  document.addEventListener("click", function(event) {
+    var targetElement = event.target;
+
+    // category 닫기
+    if (!categories.contains(targetElement)) {
+      categories.style.color = 'white';
+      dropdown.classList.remove("show");
+      dropCnt = 0
     }
   });
 </script>

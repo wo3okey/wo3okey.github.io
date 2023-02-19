@@ -11,14 +11,14 @@
 </div>
 
 <script>
-    let cnt = 0;
-    var btn = document.getElementById("follow");
+    let followCnt = 0;
+    var follow = document.getElementById("follow");
     var tooltip = document.querySelector(".tooltip");
 
-    btn.addEventListener("click", function(e) {
-        cnt++
+    follow.addEventListener("click", function(e) {
+        followCnt++
 
-        if (cnt % 2 == 0) {
+        if (followCnt % 2 == 0) {
             document.getElementById("follow-me").innerHTML = "🧑‍💻"
         } else {
             document.getElementById("follow-me").innerHTML = "🙋‍♂️"
@@ -30,4 +30,16 @@
             tooltip.style.visibility = "visible";
         }
     });
+
+
+  document.addEventListener("click", function(event) {
+    var targetElement = event.target;
+
+    // follow 닫기
+    if (!follow.contains(targetElement)) {
+        document.getElementById("follow-me").innerHTML = "🧑‍💻"
+      tooltip.style.visibility = "hidden";
+      followCnt = 0
+    }
+  });
 </script>
