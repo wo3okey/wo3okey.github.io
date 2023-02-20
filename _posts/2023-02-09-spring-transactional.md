@@ -126,7 +126,7 @@ class BreadLogService(
 {% endhighlight %}
 
 ### REQUIRED
-부모 transaction이 존재한다면 부모 transaction에 합류시키며, 그렇지 않다면 새로운 transaction을 만든다. 즉 부모 또는 자식에서 exception이 발생된다면 자식과 부모 transaction에 관련된 테이블의 savepoint는 모두 rollback 된다.
+부모 transaction이 존재한다면 부모 transaction에 합류 시키며, 그렇지 않다면 새로운 transaction을 만든다. 즉 부모 또는 자식에서 exception이 발생된다면 자식과 부모 transaction에 관련된 테이블의 savepoint는 모두 rollback 된다.
 
 {% highlight kotlin %}
 @Transactional(propagation = Propagation.REQUIRED)
