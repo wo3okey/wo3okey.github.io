@@ -1,7 +1,7 @@
 # General
 title: "wookey blog"
 author: "wookey"
-url: https://wo3okey.github.io/
+url: https://wo3okey.github.io
 
 # Post
 defaults:  # 페이지의 머리말에 선언하지 않아도 아래 내용들은 기본값으로 적용됨.
