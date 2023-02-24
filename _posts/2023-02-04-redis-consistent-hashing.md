@@ -20,13 +20,13 @@ nosql은 각 node에 key를 할당할 때 특정 node에 집중되지 않고 분
 ### general hashing
 먼저 일반적인 hashing 방법에 의해 key를 분산하면 어떻게 될까? 간단하게 알아보자.
 
-![elasticsearch shard replica]({{site.url}}/assets/images/posts/redis-consistent-hashing-01.png)
+![redis]({{site.url}}/assets/images/posts/redis-consistent-hashing-01.png)
 * node: 3(nodeA~C)
 * key: 9(key1~9)
 
 key가 유입되면 특정 hash(key) 함수의 결과에 의해 특정 node로 결정된다고 가정한다. 3개의 node에 9개 key를 분산 시켰을 때 모습을 보자. 일단 아름답게 잘 분산되어 있도록 가정했다. 편-안
 
-![elasticsearch shard replica]({{site.url}}/assets/images/posts/redis-consistent-hashing-02.png)
+![redis]({{site.url}}/assets/images/posts/redis-consistent-hashing-02.png)
 
 만약 nodeC가 장애 또는 서버통신 문제로 제기능을 할 수 없는 상태가 되었다고 하자. 그렇다면 nodeC에 분산된 key는 어떻게 될 것인가? 마음같아선 nodeA, B에 동일하게 하나씩 나눠주고 싶겠지만 결국 최초 정해진 분산 방법에 따라 전체 재해싱을 진행할 수 밖에 없다. 재해싱 후 nodeB, B의 평화에 곧 엄청난 불균형이 찾아왔다. 이는 곧 재해싱 만으로도 server에 부하를 가져오지만, 각 node 간의 key 불균형도 피할 수 없다. 
 그래서 고안된 방법 중 하나인 `consistent hashing` 을 소개한다. 관련 논문은 <ins>[이곳](https://en.wikipedia.org/wiki/Consistent_hashing#History)</ins>에서 볼 수 있다.
@@ -110,7 +110,7 @@ fun main() {
 * key: 9(key1~9)
 * replica: 1(여기서 1은 별도의 복제 없이 node의 수와 동일함을 뜻함)
 
-![elasticsearch shard replica]({{site.url}}/assets/images/posts/redis-consistent-hashing-03.png)
+![redis]({{site.url}}/assets/images/posts/redis-consistent-hashing-03.png)
 
 ```
 nodeA: [key4, key7]
@@ -126,7 +126,7 @@ nodeC: [key3, key6]
 * key: 9
 * replica: 1
 
-![elasticsearch shard replica]({{site.url}}/assets/images/posts/redis-consistent-hashing-04.png)
+![redis]({{site.url}}/assets/images/posts/redis-consistent-hashing-04.png)
 
 ```
 nodeA: [key4, key7]
@@ -143,7 +143,7 @@ replica의 수를 3으로 설정하여 기존 node들의 가상 복제본을 각
 * key: 9
 * replica: 3
 
-![elasticsearch shard replica]({{site.url}}/assets/images/posts/redis-consistent-hashing-05.png)
+![redis]({{site.url}}/assets/images/posts/redis-consistent-hashing-05.png)
 
 ```
 nodeA: [key4, key7, key8, key9]
@@ -168,7 +168,7 @@ slot의 갯수를 16384로 제한한 이유는 <ins>[이곳](https://github.com/
 * node(master): 3
 * replica(slave): 1
 
-![elasticsearch shard replica]({{site.url}}/assets/images/posts/redis-consistent-hashing-06.png)
+![redis]({{site.url}}/assets/images/posts/redis-consistent-hashing-06.png)
 
 redis cluster는 node의 갯수에 따라 16384라는 정해진 slot을 node갯수만큼 나누어(N빵) 각 key에 대한 hash연산 결과에 따라 slot에 기록한다. 
 예시를 위해 master node는 3개 세팅하였다. 실제로 0~16384의 slot을 가진 하나의 node로 구성해도 무관하다.
@@ -176,14 +176,14 @@ redis cluster는 node의 갯수에 따라 16384라는 정해진 slot을 node갯�
 이렇게 redis cluster의 replica를 구성하게 되면 slave node는 자신의 master와 다른 slot에서 각자의 master node를 바라보도록 구성한다.
 
 
-![elasticsearch shard replica]({{site.url}}/assets/images/posts/redis-consistent-hashing-07.png)
+![redis]({{site.url}}/assets/images/posts/redis-consistent-hashing-07.png)
 
 그렇다면 이번에도 node 하나가 장애가 발생하면 어떻게 될까? redis cluster는 서로 node들 간에 통신을 하며 연결되어 있고, 지속적으로 서로의 상태를 살피며 cluster을 관리한다.
 그러므로 장애 발생시 상황을 전파받고, 해당 장애가 발생한 node의 slot을 파악한 후, slave에게 master의 역할을 승격하여 failover 할 수 있도록 구성되어있다.
 이후 해당 node의 조치가 완료되면 다시 원래 상태로 돌아온다. 하지만 장애가 발생한 slot의 master, slave가 모두 장애가 발생한다면 이때는 재기능을 못할 수 있다. 이것은 redis cluster의 failover와 별개로 node를 잘 구성해야하는 문제다.
 이렇듯 redis cluster는 서로간에 통신하며 master/slave 자가복구 기능이 있어 `sentinel`과 같은 HA(high availability) 도구가 필요 없다.
 
-![elasticsearch shard replica]({{site.url}}/assets/images/posts/redis-consistent-hashing-08.png)
+![redis]({{site.url}}/assets/images/posts/redis-consistent-hashing-08.png)
 
 장애난 node가 복구되고, node 한대를 추가한다고 하자. 총 4개의 node가 slot을 할당받은 모습이 그려진다. 이는 node의 slot이 이제 `slot range = 16384 / 4` 의 결과로 재구성할 수 있게 되는것이다.
 그렇다면 기존에 존재한 key는 전부 재분산 처리를 해야하는가? 아니다. 결국 동일한 hash 연산에 mod 16384 이라는 정해진 slot 갯수로 나누기 때문에 이미 slot을 할당 받은 key의 hash값은 변하지 않는다. 
