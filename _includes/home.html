@@ -7,18 +7,18 @@
   {% include follow.html %}
   {% include search.html %}
 
-  <div class="dropdown-content" id="myDropdown">
-    {% for category in site.categories %}
-      {% for post in category[1] limit:1%}
-          <a href="/categories/{{post.categories}}">
-            <img class="icon" src="{{site.url}}/assets/images/icons/{{post.categories}}.png" />
-            {{ category | first }}
-            <span class="badge">{{ category | last | size }}</span>
-          </a>
-      {% endfor %} 
-    {% endfor %}
-  </div>
-  {% include menu.html menu=pages %}
+<div class="dropdown-content" id="myDropdown">
+  {% for category in site.categories %}
+    {% for post in category[1] limit:1%}
+        <a href="/categories/{{post.categories}}">
+          <img class="icon" src="{{site.url}}/assets/images/icons/{{post.categories}}.png" />
+          {{ category | first }}
+          <span class="badge">{{ category | last | size }}</span>
+        </a>
+    {% endfor %} 
+  {% endfor %}
+</div>
+{% include menu.html menu=pages %}
   
 </header>
 <h1></h1>
@@ -85,31 +85,3 @@
     }
   });
 </script>
-
-<!-- <script>
-let dropCnt = 0;
-function getCategories() {
-  document.getElementById("myDropdown").classList.add("show");
-  dropCnt++
-
-  var me = document.getElementById("me")
-  console.log(me)
-  if (dropCnt % 2 == 0) {
-    me.style.color = 'white';
-  } else {
-    me.style.color = 'darkorange';
-  }
-}
-
-window.onclick = function(e) {
-  if (!e.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    for (var d = 0; d < dropdowns.length; d++) {
-      var openDropdown = dropdowns[d];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script> -->
