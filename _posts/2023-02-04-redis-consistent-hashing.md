@@ -5,7 +5,7 @@ categories: [redis]
 tags: [redis, redis cluster, hash slot, consistent hashing]
 ---
 
-redis cluster의 node간에 key 분산 방식으로 사용되는 hash slot에 대해 알아보며, nosql의 key 분산 방법의 기초가 되는 consistent hashing도 함께 알아본다.
+hash slot은 redis cluster의 node간에 key 분산 방법이다. nosql의 key 분산 방법의 기초가 되는 consistent hashing도 함께 알아본다.
 
 <hr>
 

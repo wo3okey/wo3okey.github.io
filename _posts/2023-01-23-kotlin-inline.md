@@ -5,7 +5,7 @@ categories: [kotlin]
 tags: [kotlin, java, inline]
 ---
 
-inline 키워드는 kotlin에서 만들어진 함수 아래 단위에서 사용할 수 있는 키워드 문법이다. 장단점을 비교하고 목적성에 대해 정리해보고자 한다.
+inline 키워드는 kotlin에서 만들어진 함수 아래 단위에서 사용할 수 있는 키워드 문법이다. 장단점을 비교하고 목적성에 대해 정리한다.
 
 <hr>
 

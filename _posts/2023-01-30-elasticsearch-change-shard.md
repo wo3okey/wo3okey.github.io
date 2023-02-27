@@ -5,7 +5,7 @@ categories: [elasticsearch]
 tags: [elasticsearch, shard, lucene]
 ---
 
-결론부터 얘기하면 기생성된 index의 shard 값을 변경하지 못하는 이유는 lucene(루씬) 때문이다. lucene과 이를 구성하고 있는 segment, 그리고 shard와 함께 얘기해보고자 한다.
+결론부터 얘기하면 기생성된 index의 shard 값을 변경하지 못하는 이유는 lucene(루씬) 때문이다. lucene과 이를 구성하고 있는 segment, 그리고 shard와 함께 얘기한다.
 
 <hr>
 

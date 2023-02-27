@@ -5,7 +5,7 @@ categories: [kotlin]
 tags: [kotlin, data class]
 ---
 
-java의 lombok을 사용할 필요 없도록 잘 설계된 kotlin의 data class의 활용성은 한번 사용해본 개발자라면 공감할 것이다. 이번에는 data class를 상속의 관점에서 정리 해본다.
+java의 lombok을 사용할 필요 없도록 잘 설계된 kotlin의 data class의 활용성은 한번 사용해본 개발자라면 공감할 것이다. data class를 상속의 관점에서 알아본다.
 
 <hr>
 

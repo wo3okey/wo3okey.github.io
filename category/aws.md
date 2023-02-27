@@ -1,5 +1,5 @@
 ---
 layout: category
-title: aws
-permalink: '/categories/aws'
+title: AWS
+permalink: '/categories/AWS'
 ---

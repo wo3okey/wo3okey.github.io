@@ -5,7 +5,7 @@ categories: [spring]
 tags: [spring, transactional]
 ---
 
-spring에서 각 transaction를 묶어주고 관리해주는 역할의 `@Transactional`를 알아보자.
+@Transactional은 spring에서 각 transaction를 묶어주고 관리해주는 역할을 하는 선언적 방법이다. @Transactional는 여러가지 속성과 옵션을 제공하며, 예시 코드들과 함께 알아본다. 
 
 ## 1. transaction
 transaction은 DB의 상태 변경을 뜻한다. 코드도 git에 commit 하듯 DB도 변경점에 대한 savepoint를 남기며, 이는 rollback 가능한 지점을 뜻한다.
