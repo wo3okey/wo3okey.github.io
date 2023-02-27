@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 그래서 AWS kinesis는 무엇인가?
-categories: [AWS]
-tags: [AWS, kinesis]
+categories: [aws]
+tags: [aws, kinesis]
 ---
 
 AWS에서는 실시간 데이터 스트리밍을 처리할 수 있는 `kinesis`를 서비스한다. kafka와 마찬가지로 로그 수집 파이프라인, 이벤트 메세지 큐, 스트리밍 서비스 등에 사용되고 있다. 간략하게 알아보자.
