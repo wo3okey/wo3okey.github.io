@@ -9,10 +9,10 @@ tags: [elasticsearch, shard, lucene]
 
 <hr>
 
-## 1. lucene
+## lucene
 lucene은 elasticsearch의 핵심이 되는 검색엔진 그 자체이며, java로 만들어진 고성능 정보검색 오픈소스 라이브러리이다. 결국 elasticsearch는 검색 및 색인 기능은 직접 구현한게 아닌 lucene을 사용한 것이다. 그 외 REST api, 분산처리, 고가용성을 위한 shard/replica 등의 시스템을 추가하여 지금의 elasticsearch 스펙이 완성된 것이다. 
 
-## 2. segment
+## segment
 
 ![elasticsearch shard]({{site.url}}/assets/images/posts/elasticsearch-change-shard-01.png )
 
@@ -31,12 +31,12 @@ es의 index는 es shard 내 각자 lucene 라이브러리를 포함하고 있으
 
 그렇다고 장점만 존재하는것은 아니다. 불변성이라는 특성이 곧 수정이 불가하다는 뜻이다. 그말은 즉슨 일부 데이터가 변경되더라도 역색인 구조를 전부 다시 만들어야 한다는 의미이다. 하지만 매 색인마다 전체 역색인을 실시간으로 처리할 수 없다. 그래서 segment는 commit -> merge의 과정을 통해 생성, 통합 되는 것이다. 검색이라는 도메인 특성상 write보다 read 연산의 비중이 크기 때문에 불변성이 가져올 수 있는 장점이 단점보다 중요하다 생각되어 이러한 불변의 구조를 채택한 것으로 보인다.
 
-## 3. shard 값 변경
+## shard 값 변경
 shard는 내부에 독립적인 lucene 라이브러리를 포함하며, lucene은 단일 머신 위에서만 동작하는 stand alone 검색엔진이다. 실제로 es로 검색 요청이 오게되면 1개의 query로 부터 1개의 shard로 시작하여 1개의 thread로 처리가 된다. 즉 lucene은 하나의 검색요청에 대해 별도의 처리 시스템을 갖는 개념이며, 이러한 특성 상 shard 내부의 lucene 입장에서는 함께 es index를 구성하고 있는 다른 shard의 존재를 알 수 없다. 즉 primary shard 갯수를 변경한다는 것은 각각의 독립적인 구조로 되어있는 lucene의 데이터를 모두 재구성 한다는 뜻이다. 하지만 위에서 얘기한 것처럼 lucene의 내부에는 다수의 segment로 이루어져 있고, 만약 쪼개어진 shard의 데이터를 처리하게 된다면 lucene은 역색인된 segement 조각들을 다시 재결합하고 색인하는 등의 리소스가 더 큰 작업이 소요될 것이다. 그래서 한번 생성된 index의 shard의 값은 변경하지 못하도록 막은 것이다.
 
 
 
-## 4. 그래서?
+## 그래서?
 그래서 index 생성 후 shard 변경을 하지 못하는 이유에 대한 의견은 아래와 같다.
 > elasticsearhc는 단일 머신에서 동작하는 lucene과 불변성의 특징을 살려 설계된 segment에 대한 장점을 살리기 위해 index가 생성된 후 shard 값을 변경할 수 없도록함
 

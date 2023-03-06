@@ -9,7 +9,7 @@ java의 lombok을 사용할 필요 없도록 잘 설계된 kotlin의 data class�
 
 <hr>
 
-## 1. Data class
+## Data class
 java의 lombok도 편하지만 kotlin data class는 기본적인 메소드들을 만들기 진짜 세상 편하다. 하지만 상속을 할때에는 꼭 유의해야하는 사항이 있다. 차근차근 알아보자.
 
 ### hash code
@@ -75,7 +75,7 @@ false
 ```
 a, a1은 hashcode가 같지 않다는 `false` 결과를 바로 확인 할 수 있다.
 
-## 2. Data class 상속
+## Data class 상속
 data class의 부모객체(SuperClass)를 하나 설정해보자. 
 
 `kotlin`
@@ -145,7 +145,7 @@ fun main() {
 false
 ```
 
-## 3. 그래서?
+## 그래서?
 java, kotlin 할 것 없이 상속은 간단하고 자주 사용되는 기본적인 문법이지만, 항상 주의를 기울여야한다. 그래서 kotlin 상속시 다음 유의 사항들은 살펴보면 좋을것 같다.
 > 상속한 객체의 변수는 가능한 override 해서 사용할것.<br>
 > 반드시 부모객체의 정보를 받아야는게 아니라면, 상속이 아닌 interface를 활용하여 재정의 할것.

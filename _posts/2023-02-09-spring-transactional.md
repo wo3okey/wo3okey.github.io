@@ -7,7 +7,7 @@ tags: [spring, transactional]
 
 @Transactional은 spring에서 각 transaction를 묶어주고 관리해주는 역할을 하는 선언적 방법이다. @Transactional는 여러가지 속성과 옵션을 제공하며, 예시 코드들과 함께 알아본다. 
 
-## 1. transaction
+## transaction
 transaction은 DB의 상태 변경을 뜻한다. 코드도 git에 commit 하듯 DB도 변경점에 대한 savepoint를 남기며, 이는 rollback 가능한 지점을 뜻한다.
 
 흔히 `ACIS(애시드)`라고 불리는 transaction의 성질 4가지가 있다.
@@ -17,7 +17,7 @@ transaction은 DB의 상태 변경을 뜻한다. 코드도 git에 commit 하듯 
 * Isolation(격리성): 동시에 실행되는 transaction들이 서로 영향을 미치지 않도록 격리
 * Durability(영속성): transaction을 성공적으로 마치면 결과가 항상 저장
 
-## 2. @Transactional
+## @Transactional
 spring에서는 transaction을 구현할 수 있도록 여러가지 형태로 지원한다. 그 중 가장 쉽게 사용할 수 있고 많이 사용하는 annotation 형태의 선언적 방법인 `@Transactional` 을 알아본다. spring에서 @Transactional을 사용하기 위한 방법, DB, ORM 설정 등의 내용은 다루지 않는다.
 
 ### proxy
@@ -82,7 +82,7 @@ spring @Transactional는 다양한 속성 정보를 설정 할 수 있다.
 
  여러 속성 중 transaction의 성질인 ACID와 긴밀하게 연관된 `propagation`, `isolation`에 대해서 좀 더 자세히 알아보자.
 
-## 3. propagation
+## propagation
 spring에서 제공하는 @Transactional은 6개의 propagation 설정을 제공한다. 각각의 설정에 따른 동작을 위에서 언급한 예시 코드와 함께 알아보자. DB는 mysql, ORM은 JPA를 사용했다.
 
 제과(빵) 정보를 bulk 입력할때 bread 및 log를 단건으로 각각 입력하는 코드이다. 사실 실제 bulk 처리는 이렇게 건바이건 처리 하지 않지만, 부모/자식 transaction 처리를 간단하게 보여주기 위해 일부러 묶었다. 참고로 각각의 propagation 전파 설정을 코드로 설명할 때에는 function 부분만 기재한다.
@@ -312,7 +312,7 @@ org.springframework.transaction.IllegalTransactionStateException: Existing trans
 ```
 한번도 실무에서 사용해본 적은 없다. 이론상 transaction 처리가 절대 발생하면 안되는 메소드에 실수로 transaction에 합류 되는 것을 방지하기 위함으로 보인다.
 
-## 4. isolation
+## isolation
 isolaction은 먼저 언급한 ACID 속성중 하나이다. 격리성 또는 고립성 이라고 부르는 isolation은 말그대로 transaction끼리 서로에게 얼마나 격리되어 있는지를 나타낸다. 쉽게 얘기하면 transaction이 다른 transaction에서 변경한 데이터를 어느정도 수준에서 볼 수 있도록 할 지 결정하는 요소이다. DB는 ACID의 특징에 따라 각 transaction이 독립적인 수행을 할 수 있도록 `locking`을 통해 transaction의 수행간에 다른 transaction이 관여하지 못하도록 제어한다. locking을 하게되면 동시처리 능력이 떨어지므로 결국 전체적인 성능이 떨어질 수 밖에 없고, 너무 느슨하게 lock의 범위를 줄인다면 잘못된 값을 읽고 쓰는 문제가 발생할 수 있다. 이에따라 ANSI/ISO 표준에는 4가지의 isolation level을 정의했다.
 
 ### READ_UNCOMMITTED
@@ -361,7 +361,7 @@ level3의 가장 높은 transaction 격리 수준이며 거의 사용하지 않�
 select, write 실행에 모두 lock을 선점한다. dirty read, non repeatable read, phantom read와 같은 문제가 발생하지 않으며, 일관성을 유지시킬 수 있는 가장 강력한 방법이다. 그 만큼 lock을 최대한으로 사용하기 때문에 동시 처리능력이 급격하게 떨어지고 결국 성능에 문제가 발생될 수 있다.
 
 
-## 5. 그래서?
+## 그래서?
 ![transactional]({{site.url}}/assets/images/posts/spring-transactional-01.png)
 
 그래서 `@Transactional`은 spring에서 편리하게 transaction 처리를 적용할 수 있는 매우 유용한 방법이며, DB 관련 로직에서는 떼놓을 수 없는 손님이다.

@@ -9,12 +9,12 @@ hash slot은 redis cluster의 node간에 key 분산 방법이다. nosql의 key �
 
 <hr>
 
-## 1. redis cluster
+## redis cluster
 redis cluster은 redis 3.0 버전 이상부터 추가되었으며 데이터 동기화, 복제, failover 등을 지원할 수 있는 기능이 추가된 향상된 redis라고 생각하면 된다. 특히 failover 관점에서 node의 장애 또는 통신 문제 등 master-slave 및 replica 기능을 통해 수준높은 가용성을 제공할 수 있다.
 
 nosql은 각 node에 key를 할당할 때 특정 node에 집중되지 않고 분산처리를 위해 `consistent hashing` 이라고 하는 파티셔닝 방법을 대게 사용한다. consistent hashing은 redis 3.0 이전에는 다양한 버전에서 채택했다. 이후 redis cluster가 자리잡으면서 `hash slot` 이라는 방법을 선택했다. 
 
-## 2. hashing
+## hashing
 분산처리 key 분배 시 기본적으로 hasing에 의해 값을 결정하고 목적에 따라 일부 알고리즘을 변경해서 사용한다. 일단 redis cluster hash slot 설명에 앞서 key 분산처리를 위한 일반적인 hashing 및 consistent hashing을 먼저 알아보자.
 
 ### general hashing
@@ -157,7 +157,7 @@ replica의 수가 증가하면 node의 간격은 더더욱 촘촘해져, key 분
 redis 3.0 이후 redis cluster가 도입되면서 `hash slot`에 의해 key를 관리하게 된다. 그렇다면 hash slot은 어떻게 동작할까?
 
 
-## 3. hash slot
+## hash slot
 hash slot은 consistent hashing과 비슷한 개념을 redis cluster에서 일컫는 방법이라 생각하면 된다. 하지만 구체적인 구현에는 조금 차이가 있다.
 > HASH_SLOT = CRC16(key) mod 16384
 
@@ -191,7 +191,7 @@ redis cluster는 node의 갯수에 따라 16384라는 정해진 slot을 node갯�
 그외 추가된 node에 의해 영역의 갭이 생긴 4094개의 slot의 key들만 영향을 받을 수 있다. 이렇게 redis cluster에서는 key의 전체 재분산을 하지 않고 node가 추가 되었을때 최소한의 분산을 지원할 수 있다.
 그리고 slot 전체를 재분산하려면 `reblance` 명령어를 통해 slot간에 key 재분산이 가능하다.
 
-## 4. 그래서?
+## 그래서?
 
 그래서 구체적인 구현 방식에서 차이는 조금 있지만 redis cluster의 hash slot과 consistent hashing은 둘 다 key-value 쌍을 관리하는 분산 캐시 시스템에서 사용되는 hashing 기법이다. 
 > 결국 분산 캐시 시스템에서의 핵심은 hash. 적절한 hash function을 통한 연산 결과 값을 어떻게 다루느냐 성능과 가용성을 좌우한다.

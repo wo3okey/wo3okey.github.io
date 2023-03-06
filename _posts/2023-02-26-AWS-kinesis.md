@@ -7,7 +7,7 @@ tags: [aws, kinesis]
 
 AWS에서는 실시간 데이터 스트리밍을 처리할 수 있는 kinesis를 서비스한다. kafka와 마찬가지로 로그 수집 파이프라인, 이벤트 메세지 큐, 스트리밍 서비스 등에 사용되고 있다. 간략하게 알아보자.
 
-## 1. kinesis 란
+## kinesis 란
 `kinesis`는 대규모의 실시간 데이터 스트리밍 처리를 지원하는 pub/sub 모델을 구현한 AWS 관리형 서비스이다.
 
 ### data strems
@@ -32,7 +32,7 @@ AWS에서는 KPL, KCL을 지원하여 kinesis data stream을 쉽고 빠르게 �
 * `KCL(Kinesis Client Library)`은 kinesis data stream의 데이터를 읽고 처리하는 애플리케이션을 쉽게 구축할 수 있도록 지원하는 라이브러리
 
 
-## 2. 용량 모드
+## 용량 모드
 kinesis data stream을 생성할 때에는 두가지 비용의 용량모드를 선택할 수 있다.
 
 ![AWS-kinesis]({{site.url}}/assets/images/posts/AWS-kinesis-03.png)
@@ -63,7 +63,7 @@ kinesis data stream은 필요에 따라 라이브 서비스 중에도 즉각적�
 
 온디맨드 모드와 프로비저닝 모드 간을 하루에 두 번 전환할 수 있다. 프로비저닝된 모드에서 온디맨드 모드로 전환할 때 데이터 스트림의 shard 수는 동일하게 유지되며 그 반대의 경우도 마찬가지이다. 반대의 경우에는 kinesis data streams는 데이터 트래픽을 모니터링하고 트래픽 증가 또는 감소에 따라 온디맨드 data stream의 shard 수를 늘리거나 줄인다.
 
-## 3. shard
+## shard
 `shard`는 간단하게 stream을 구성하는 단위라고 위에서 설명했다. 좀 더 자세히 알아보자.
 
 ### 처리량
@@ -84,7 +84,7 @@ shard의 갯수는 곧 stream에서 단위시간에 처리할 수 있는 data re
 
 AWS에서 가이드 하는 개수 설정 방법은 조금 복잡해 보일 수 있다. 로그 데이터 파이프라인 서비스나 대량의 스트리밍 서비스 등의 작업이 아닌 이상 단일 shard 정도로도 꽤나 준수한 처리량을 제공받을 수 있다.
 
-## 4. 그래서?
+## 그래서?
 AWS kinesis는 운영 설정이나 관리 포인트를 대폭 감소시키고 각종 라이브러리까지 지원하여 쉽고 빠르게 대규모 스트리밍 서비스를 개발할 수 있도록 지원하고 있다. 
 특히 AWS 관리형 서비스 답게 별도의 복잡한 설정이나 시스템 구축에 대한 허들 없이도 가능한 것이 매우 장점으로 보인다. 다만 굳이 [kafka](https://wo3okey.github.io/kafka/2023/02/22/kafka.html)와 비교하자면 kinesis는 shard에 대해 속도나 용량등의 제한적 처리량을 강제화하고 있는것은 사실이자 단점일 수 있다.
 > AWS를 사용하는 인프라 시스템에서 쉽고 빠르게 대규모 스트리밍, 이벤트 메세지 시스템 등을 구축하기에 kinesis 서비스는 꽤 좋은 선택지가 될 수 있다.
