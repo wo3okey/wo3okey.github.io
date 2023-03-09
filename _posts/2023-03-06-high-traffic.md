@@ -49,6 +49,11 @@ sacle out으로 서버를 증설했다면 `로드밸런서`를 통해 트래픽�
 로드밸런서는 대표적으로 TCP/UDP 기반의 L4, HTTP/HTTPS 기반의 L7 계층의 로드밸런서가 있다. AWS에는 L7 `ALB(Application Load Balancer)` 서비스를 제공한다. ALB는 HTTP/HTTPS 기반으로 동작하여 URI 경로, host 이름, HTTP header, query 문자열 등 다양한 속성을 기반으로 요청을 분배하여 L4 로드밸런서에 비해 세밀한 부하 분산이 가능하다. 그외 방화벽과 결합, 프록시 서버의 역할 등의 기능도 수행할 수 있다.
 
 ### HTTP
+하나의 트래픽은 곧 TCP/IP HTTP 통신을 통해 처리되는 것이라 했다. 결국 HTTP 통신간에 지연을 줄일 수 있다면, 단위 시간에 처리할 수 있는 요청 수도 많아질 수 있다. 방법은 단순하다. `HTTP version`을 상향 시키는 것이다. 
+
+![HTTP protocol]({{site.url}}/assets/images/posts/high-traffic/high-traffic-08.png)
+
+만약 가용중인 웹서버가 HTTP/1.1을 사용하고 있다면, HTTP/2.0으로 버전을 올리는것 만으로도 성능이 향상될 수 있다. HTTP/2.0은 한번의 연결로 여러 요청을 처리할 수 있는 `멀티플렉싱`을 제공함으로써, 단위 시간에 더욱 많은 요청을 처리할 수 있기 때문이다. 다만 자신이 사용중인 웹서버 및 클라이언트(브라우저)에서 HTTP/2.0을 지원하는지 확인해야한다. nginx 기준으로는 1.9.5 버전 이상에서 HTTP/2.0를 지원한다. 참고로 구글에서 개발한 UDP 기반의 HTTP/3.0도 이미 시장에서 상용되고 있으니 관심 있으면 더 깊게 찾아봐도 좋다.
 
 ## storage
 웹서버의 성능을 높이거나 갯수를 늘려도 데이터 저장소에 의해 트래픽을 처리하지 못할 수 있다. 네트워크 시간중 I/O 처리를 얼마나 안정적이고 빠르게 처리하냐에 따라 서버 가용성에 큰 도움이 된다. 가장 쉽게 접근하는 RDBMS인 DB의 부하 분산 방법부터 알아보자.
@@ -71,19 +76,30 @@ sacle out으로 서버를 증설했다면 `로드밸런서`를 통해 트래픽�
 * global cache: 여러대의 서버가 있다면, 별도의 캐시 서버두고 동기화된 메모리를 공유하는 것을 뜻한다. local cache에 비하면 동기화 문제는 없으나 네트워크 I/O 과정이 있기에 속도차이는 발생할 수 있다.
 
 ### CDN
-일반적인 데이터 외 컨텐츠 정보는 `CDN(Content Delivery Network)`을 통해 저장할 수 있다. CDN은 서버와 사용자 사이에서 동영상이나 웹사이트 이미지와 같은 컨텐츠 정보를 빠르게 전달하기 위한 일종의 캐시 서버이다. 컨텐츠 정보에 특화되어 관리되므로 안정적으로 컨텐츠 정보를 전달할 수 있다. 또한 웹 서버의 컨텐츠 트래픽을 부하분산 함으로써 웹 서버 자체에 대한 대역폭 소비를 줄여 성능과 가용성 측면에서 많은 이득을 볼 수 있다. 논외로, 세계에서 가장 점유율이 높은 CDN은 Akamai이며, AWS에는 CloudFront 라는 서비스로 제공한다.
+일반적인 데이터는 서버의 메모리 캐시를 통해 처리한다면, 컨텐츠 정보는 `CDN(Content Delivery Network)`을 통해 저장 또는 캐시 할 수 있다. 
+
+![HTTP protocol]({{site.url}}/assets/images/posts/high-traffic/high-traffic-10.png)
+
+CDN은 서버와 사용자 사이에서 동영상이나 웹사이트 이미지와 같은 컨텐츠 정보를 빠르게 전달하기 위한 일종의 캐시 서버이다. 컨텐츠 정보에 특화되어 관리되므로 안정적으로 컨텐츠 정보를 전달할 수 있다. 또한 웹 서버의 컨텐츠 트래픽을 부하분산 함으로써 웹 서버 자체에 대한 대역폭 소비를 줄여 성능과 가용성 측면에서 많은 이득을 볼 수 있다. 논외로, 세계에서 가장 점유율이 높은 CDN은 Akamai이며, AWS에는 CloudFront 라는 서비스로 제공한다.
 
 
-
-## code
-알게모르게 내가 개발해놓은 코드가 전체적인 네트워크 지연에 가장 큰 악영향을 끼칠 수 있다. 그리고 항상 시스템을 모니터링하고 병목이 발생될 수 있는 부분을 리펙토링 해야하며, 경량하고 확장성 있는 시스템 구조를 고민해봐야 한다.
+## application
+개발자가 직접적으로 고민해야 할 영역이다. 항상 시스템을 모니터링하고 테스트하면서 병목이 발생될 수 있는 부분을 리펙토링 하도록 노력해야한다. 경량한 서비스를 만들기 위해서는 도메인 목적에 맞게, 단일 책임 기반의 시스템 설계 및 개발이 필요하다.
 
 ### big O
-특히 시간복잡도가 O(n^2) 이상이거나 입력 크기가 큰 데이터를 처리해야 하는 로직이라면, 항시 경계 해야한다. 자고로 10,000건의 데이터를 중첩된 for loop로 개발하게 되면 100,000,000(1억)건의 반복을 수행해야 한다. 물론 처음부터 대량 정보에 대해 중첩된 반복으로 개발하진 않을것이다. 하지만 시스템에 관심을 기울이지 않는다면, 어느새 늘어나있는 테이블 데이터에 의해 내가 만든 비즈니스 로직이 전체 네트워크에 병목을 줄 수 있다.
+시간복잡도가 O(n^2) 이상이거나 입력 크기가 큰 데이터를 처리해야 하는 로직이라면, 항시 경계 해야한다. 자고로 10,000건의 데이터를 중첩된 for loop로 개발하게 되면 100,000,000(1억)건의 반복을 동기적으로 수행해야 한다. 물론 처음부터 대량 정보에 대해 중첩된 반복으로 개발하진 않을것이다. 하지만 시스템에 관심을 기울이지 않는다면, 어느새 늘어나있는 테이블 데이터에 의해 내가 만든 비즈니스 로직이 전체 네트워크에 병목을 줄 수 있다.
 
-### test, APM
+### pool size
+여러 도구에 따라 pool(대기열)을 지원하는 시스템이 있다. 특히 대용량 트래픽을 처리하기 위해서는 충분한 CPU, 메모리, 디스크 리소스를 확보하여 `thread pool` 및 `DB connection pool` 값을 적절하게 설정해야 한다.
+
+![HTTP protocol]({{site.url}}/assets/images/posts/high-traffic/high-traffic-09.png)
+
+* thread pool: 애플리케이션에서 처리해야 할 작업을 동시에 처리할 수 있도록 지원하는 스레드의 집합이다. 너무 적게 설정하면 대기중인 작업이 많아지게 되어 처리 속도가 느려질 수 있다. 반대로 너무 많이 설정하면 스레드는 별도의 스택 공간을 갖기 때문에 메모리를 많이 잡아먹으며, 잦은 context switching이 발생하여 CPU 오버헤드 등의 문제가 발생할 수 있다. 참고로 spring boot의 기본 WAS인 tomcat의 경우 default thread pool size는 200이다.
+* DB connection pool: DB에 동시 연결이 가능한 수 이다. java의 DB connection 과정은 I/O과정에 부하가 큰 작업이다. 그래서 미리 connection pool을 통해 서버 연결간에 connection을 확보하고, 재활용 함으로써 서버의 부하를 줄일 수 있다. 너무 적게 설정하면 대기 시간이 발생하여 애플리케이션의 처리 속도가 느려질 수 있고, 너무 많이 설정하면 메모리 소모가 클 것이다. 참고로 spring boot의 경우 HikaraCP를 기본 커넥션 관리 라이브러리로 사용한다.
 
 ### CQRS
+
+### non-blocking
 
 ## 그래서?
 
@@ -92,4 +108,7 @@ sacle out으로 서버를 증설했다면 `로드밸런서`를 통해 트래픽�
 * <https://aws.amazon.com/ko/blogs/korea/new-application-load-balancer-simplifies-deployment-with-weighted-target-groups/>
 * <https://vince-kim.tistory.com/m/39>
 * <https://docs.aws.amazon.com/ko_kr/elasticloadbalancing/latest/application/introduction.html>
+* <https://blog.naver.com/PostView.nhn?blogId=dilrong&logNo=221689556862>
+* <https://jaehoney.tistory.com/155>
+* <https://imagekit.io/blog/what-is-content-delivery-network-cdn-guide/>
 
