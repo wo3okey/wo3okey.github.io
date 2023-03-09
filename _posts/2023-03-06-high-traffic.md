@@ -98,17 +98,38 @@ CDN은 서버와 사용자 사이에서 동영상이나 웹사이트 이미지�
 * DB connection pool: DB에 동시 연결이 가능한 수 이다. java의 DB connection 과정은 I/O과정에 부하가 큰 작업이다. 그래서 미리 connection pool을 통해 서버 연결간에 connection을 확보하고, 재활용 함으로써 서버의 부하를 줄일 수 있다. 너무 적게 설정하면 대기 시간이 발생하여 애플리케이션의 처리 속도가 느려질 수 있고, 너무 많이 설정하면 메모리 소모가 클 것이다. 참고로 spring boot의 경우 HikaraCP를 기본 커넥션 관리 라이브러리로 사용한다.
 
 ### CQRS
+애플리케이션 서버를 경량화하고 목적에 맞는 커넥션(read, write)을 관리함으로써 시스템 자원을 효율적으로 사용할 수 있다. 이는 곧 대용량 트래픽을 처리에 큰 효과를 발휘할 수 있다 있다. 이러한 시스템은 명령(command)과 조회(query)를 분리하는 것을 중심으로 설계 된 `CQRS(Command Query Responsibility Segregation)` 소프트웨어 아키텍처 패턴을 통해 구현할 수 있다.
 
-### non-blocking
+![HTTP protocol]({{site.url}}/assets/images/posts/high-traffic/high-traffic-11.png)
+
+CQRS 패턴은 데이터의 변경을 명령(command)하는 시스템과 조회(query) 및 처리하는 시스템을 분리하는 것이 핵심이다. 각각 분리된 시스템은 분산 시스템으로써의 장점을 갖을 뿐 아니라, 확장성 및 유지보수성 등 여러가지 측면에서 이점이 있다. 일반적으로 이벤트 기반의 시스템(kafka, rabbitMQ 등) 및 DDD(Domain-driven Design) 개념과 함께 사용한다. 
+
+REST API와 같은 직접적인 http connection에 의한 처리를 하지 않기 때문에, query의 역할을 하는 시스템에서의 장애를 command 시스템에서 알아내기 위해 예외적인 개발이 필요할 수 있다. 또한 비즈니스 처리가 동기적으로 진행되어야 할 DB동작과 엮이게 된다면 transaction 처리에 어려움이 발생할 수 있다.
+
+### non blocking/async
+`non blocking`과 `async`를 조합하면 대량의 요청에 대해 병렬적으로 처리하여 시스템 처리량을 향상시킬 수 있다. non blocking이 비동기로 동작하는 것이 아닌가? 라고 생각하는 경우가 많다. 비동기 동작은 asynchronous이다. 두 개념은 다른것이며, 설명은 아래와 같다.
+
+* non-blocking: A 함수가 B 함수를 호출 할 때, B 함수가 제어권을 바로 A 함수에게 넘겨주면서, A 함수가 다른 일을 할 수 있도록 하는 것.
+* asynchronous: A 함수가 B 함수를 호출 할 때, B 함수의 결과를 B 함수가 처리하는 것.
+
+사실 이런 딱딱한 설명으로는 이해하기 힘들 수 있다. 그림을 보면서 이해해보자.
+
+![HTTP protocol]({{site.url}}/assets/images/posts/high-traffic/high-traffic-12.png)
+
+커피 가계 직원은 커피를 주문한 손님이 다른일을 할 수 있도록 `non blocking`으로 주문 후 이후 행동에 대한 제어권을 손님에게 주는 것이다. 손님은 잠깐 나갔다 오던 의자에 앉아 있던 화장실을 다녀오던 하고싶은 일을 하면된다. 그리고 커피를 직원이 손님에게 가져다 주지 않고, 진동벨을 통해 손님이 받으러 간다. 즉, 손님이 주문 결과 나온 커피를 직접 받도록 `async`로 동작한다. 그래서 스타벅스는 non blocking/async로 동작하기 때문에 주문 순환이 빠르다. 그래서 대량의 손님(트래픽)을 빠른 시간에 처리할 수 있는 것이다. 
+
+하지만 첫번째 손님이 5분이 걸리는 음료를 주문하고, 세번째 손님이 1분이 걸리는 음료를 주문한다면 어떨까? 세번째 주문한 손님의 진동벨이 먼저 울릴 수 있다. 하지만 진동벨은 울리고 있지만, 전화를 하던 도중이라 나중에 음료를 받으러 갈 수도 있다. 즉, async에 대한 동작은 커피(결과)에 대한 제어권이 손님에게 있기 때문에 최종적인 결과에 대한 순서를 보장할 수 없다.
+
 
 ## 그래서?
+대용량 트래픽을 처리할 수 있는 방법은 사실 소개한 방법들 외에도 너무나 많다. 실제로 상황에 처해보면 예상치 못한 곳에서 수 많은 체크 포인트들이 발생할 수 있다. 결국 주어진 상황에서 최선의 방법을 찾아서 대응 해야한다.
+> 대용량 트래픽 처리는 서버 개발자들의 워너비이자 숙명이다.
 
 {% include ref.html %}
-* <https://itwiki.kr/w/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4_%EC%83%A4%EB%93%9C>
-* <https://aws.amazon.com/ko/blogs/korea/new-application-load-balancer-simplifies-deployment-with-weighted-target-groups/>
 * <https://vince-kim.tistory.com/m/39>
 * <https://docs.aws.amazon.com/ko_kr/elasticloadbalancing/latest/application/introduction.html>
 * <https://blog.naver.com/PostView.nhn?blogId=dilrong&logNo=221689556862>
 * <https://jaehoney.tistory.com/155>
 * <https://imagekit.io/blog/what-is-content-delivery-network-cdn-guide/>
-
+* <https://poiemaweb.com/js-async>
+* <https://aws.amazon.com/ko/blogs/korea/new-application-load-balancer-simplifies-deployment-with-weighted-target-groups/>
