@@ -44,11 +44,25 @@ public class TransactionProxy {
 하지만 모든 트랜잭션 처리 코드에 이와 같은 로직을 작성하게 되면, 비즈니스 로직에 집중이 되지 않고 중복적인 코드를 발생시키게 된다. 그래서 spring에서는 트랜잭션 처리 로직을 횡단으로 적용할 수 있도록 `@Transactional` AOP Proxy를 지원한다.
 
 # AOP Proxy
-## JDK Proxy
-## CGLIB
+spring AOP에는 JDK Proxy, CGLib Proxy의 두가지 방법이 있다. 두 방식의 가장 핵심적인 차이는 인터페이스의 유무이다.
 
+![spring-aop]({{site.url}}/assets/images/posts/spring-aop/spring-aop-02.png)
+
+## JDK Proxy
+JDK Proxy의 경우 AOP를 적용하여 구현된 클래스의 인터페이스를 프록시 객체로 구현해서 코드를 끼워넣는 방식이다.
+* Relfection API을 사용해 느리다.
+* 인터페이스가 반드시 필요하다.
+
+## CGLIB
+CGLib은 Code Generator Library의 약자로, 클래스의 바이트코드를 조작하여 Proxy 객체를 생성해주는 라이브러리이다. springboot2 부터는 외부 라이브러리가 아닌, core 모듈에 기본 탑제 되어있다.
+
+* 바이트 코드를 조작해서 빠르다.
+* 클래스만 있어도 작동한다.
+* 상속을 이용해서 프록시를 생성하기 때문에, 당연하게도 메서드에 final, private를 붙이면 안된다.
 
 # 그래서?
+spring AOP는 사용자의 특정 호출 시점에 IoC 컨테이너에 의해 AOP를 할 수 있는 Proxy Bean을 생성해준다. 이는 동적으로 생성된 Proxy Bean의 타겟 메소드가 호출되는 시점에 부가적인 기능을 추가할 메소드를 주입해준다. 
+> AOP Proxy의 런타임 위빙(Weaving)을 통해 개발자는 불필요한 횡단 로직을 간결화 하고 AOP Proxy에 의해 비즈니스 모듈에 집중하는 코드를 개발할 수 있다.
 
 {% include ref.html %}
 * 
