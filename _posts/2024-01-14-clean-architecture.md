@@ -5,9 +5,9 @@ categories: [book]
 tags: [clean architecture, 클린 아키텍처]
 ---
 
-![clean-architecture]({{site.url}}/assets/images/posts/book/clean-architecture-01.png){: width="500" }
-
 신입 시절 아무것도 모르고 읽은 클린 아키텍처를 5년만에 다시 읽게 되었다. 여전히 긴가민가한 내용도 많지만 책의 내용중 일부를 실무에서 사용하기도 하고, 화자의 의도를 이해하기 하는 부분도 많이 생긴것 같다. 간략해게 리뷰해본다.
+
+![clean-architecture]({{site.url}}/assets/images/posts/book/clean-architecture-01.png){: width="500" }
 
 # 소프트웨어 시스템
 소프트웨어(soft ware)는 부드러운(soft)와 제품(ware)의 합성어이다. 즉 소프트웨어를 만드는 이유는 기계의 행위를 쉽게 변경할 수 있도록 하기 위해서다. 그게 아니라면 하드웨어라 불렀을 것이다. 소프트웨어는 반드시 부드러워야 하며, 이는 곧 변경하기 쉬어야 한다는 것을 뜻한다. 새로운 기능이나 변경이 쉬운 소프트웨어를 개발하기 위해 시스템 아키텍처는 독립적이어야 한다.
