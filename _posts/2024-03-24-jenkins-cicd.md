@@ -216,7 +216,7 @@ springboot application server를 띄울 ec2 하나를 띄운다. 나는 ubuntu o
 ec2에는 docker-compose 명령어를 통해 blue green 배포를 한다. 따라서 docker 및 docker-compose 설치가 필요하다. 설치 내용은 생략한다.
 
 ## deploy.sh
-jenkins에서 ssh 연결 후 실행시킬 deploy 쉘 스크립트가 필요하다. blue가 켜져있으면 green을, green이 켜져있으면 blue를 배포하는 간단한 스크립트이다. ec2의 root 경로에 작성했다.
+jenkins에서 ssh 연결 후 실행시킬 deploy 쉘 스크립트가 필요하다. 이때 nginx가 설치(생략)되어 있어야하며 blue가 켜져있으면 green을, green이 켜져있으면 blue를 배포하는 간단한 스크립트이다. ec2의 root 경로에 작성했다.
 
 {컨테이너명} 부분은 필히 본인이 사용할 이름으로 변경해야한다! ex) {컨테이너명} -> test-container
 
